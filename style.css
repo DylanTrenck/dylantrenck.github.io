@@ -1,0 +1,182 @@
+/* Define your color variables */
+:root {
+  --olive: #a8bba3;       /* Light Olive Green */
+  --olive-dark: #8ea884;  /* Darker Olive for hover effects */
+  --brown: #8b5e3c;       /* Brown */
+  --creme: #f8f0e3;       /* Crème */
+  --text-color: var(--brown);
+}
+
+/* Reset & Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background: var(--creme);
+  scroll-behavior: smooth;
+}
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Navbar Styles */
+.navbar {
+  background: var(--creme);
+  border-bottom: 1px solid var(--olive);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--brown);
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+}
+.nav-links li {
+  margin-left: 2rem;
+}
+.nav-links a {
+  text-decoration: none;
+  color: var(--brown);
+  transition: color 0.3s;
+}
+.nav-links a:hover {
+  color: var(--olive);
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+.hamburger span {
+  height: 3px;
+  width: 25px;
+  background: var(--brown);
+  margin-bottom: 4px;
+  border-radius: 5px;
+}
+
+/* Hero Section */
+#hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--creme);
+  padding-top: 60px; /* offset for fixed navbar */
+  text-align: center;
+}
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--brown);
+}
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: var(--brown);
+}
+.btn {
+  display: inline-block;
+  background: var(--olive);
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+.btn:hover {
+  background: var(--olive-dark);
+}
+
+/* Section Styles */
+section {
+  padding: 4rem 0;
+}
+section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: var(--brown);
+}
+
+/* Projects Grid */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+.project {
+  background: #fff;
+  padding: 1.5rem;
+  border: 1px solid var(--olive);
+  border-radius: 5px;
+  text-align: center;
+  transition: transform 0.3s;
+}
+.project:hover {
+  transform: translateY(-5px);
+}
+
+/* Footer */
+footer {
+  background: var(--brown);
+  color: var(--creme);
+  text-align: center;
+  padding: 1.5rem 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: var(--creme);
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 200px;
+    border: 1px solid var(--olive);
+  }
+  .nav-links li {
+    margin: 1rem;
+  }
+  .hamburger {
+    display: flex;
+  }
+  .nav-links.active {
+    display: flex;
+  }
+}
+
+.background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* Ensures the video covers the area without distortion */
+    z-index: -1;        /* Pushes the video behind all other elements */
+  }
