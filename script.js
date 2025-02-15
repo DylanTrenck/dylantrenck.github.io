@@ -27,11 +27,17 @@ window.addEventListener('click', function(event) {
   }
   contactForm.addEventListener("submit", function (event) {
     event.preventDefault();
-    // Here you can implement your email submission logic
-    alert("Your message has been sent!");
-    modal.style.display = "none";
-    // Optionally, reset the form fields
-    contactForm.reset();
+
+    emailjs.sendForm('trencktech', 'PW', contactForm)
+      .then(function(response) {
+        console.log('SUCCESS!', response.status, response.text);
+        alert("Your message has been sent!");
+        modal.style.display = "none";
+        contactForm.reset(); // Optionally reset the form fields
+      }, function(error) {
+        console.error('FAILED...', error);
+        alert("Failed to send your message. Please try again later.");
+      });
   });
 });
 
