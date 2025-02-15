@@ -1,34 +1,197 @@
-/* Define your color variables */
-:root {
-  --olive: #a8bba3;       /* Light Olive Green */
-  --olive-dark: #8ea884;  /* Darker Olive for hover effects */
-  --brown: #8b5e3c;       /* Brown */
-  --creme: #f8f0e3;       /* Crème */
-  --text-color: var(--brown);
+/* Base Styles */
+html {
+  scroll-behavior: smooth;
 }
 
-/* Reset & Base Styles */
+/* Color Variables */
+:root {
+  --olive: #a8bba3;
+  --olive-dark: #8ea884;
+  --brown: #8b5e3c;
+  --creme: #f8f0e3;
+  --text-color: var(--brown);
+  --bg-page: #3A2F2F; /* New felt-inspired dark burgundy background */
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Nunito', sans-serif;
   line-height: 1.6;
   color: var(--text-color);
-  background: var(--creme);
+  background: var(--bg-page);
   scroll-behavior: smooth;
 }
+
+.thin-text {
+  font-weight: 200;
+}
+
 .container {
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
 }
 
-/* Navbar Styles */
+.logo-icon {
+  width: 128px;
+  height: auto;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+h1, h2, h4, h5, h6,
+.hero-content h1 {
+  /* Apply a 1px white stroke */
+  -webkit-text-stroke: 2px white;
+
+}
+
+/* ------------------------------ */
+/* Background Stars               */
+/* ------------------------------ */
+
+.background-stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2; /* Behind shooting stars (which are at -1) and planets */
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  background: radial-gradient(circle, #fff, transparent);
+  border-radius: 50%;
+  opacity: 0.8;
+}
+/* ------------------------------ */
+/* Shooting Stars                 */
+/* ------------------------------ */
+
+.shooting-stars {
+  position: fixed;
+  top: 10%;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.shooting-star {
+  position: absolute;
+  left: 10px;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(30deg, #ffffff, #42d2fdd9 60%, transparent);
+  border-radius: 50%;
+  filter: drop-shadow(0 0 8px rgba(255, 64, 129, 0.8));
+  opacity: 0;
+  animation: shootingStarAnimation 4s ease-in-out infinite;
+}
+
+/* Animation: from middle left to bottom right */
+@keyframes shootingStarAnimation {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0)
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;  }
+  100% {
+    opacity: 0;
+    transform: translate(100vw, 100vh);
+  }
+}
+
+/* ------------------------------ */
+/* Planet Decoration Styles       */
+/* ------------------------------ */
+
+.planet {
+  position: absolute;
+  z-index: 0;
+  width: 40px;
+  height: 40px;
+  pointer-events: none;
+  filter: drop-shadow(3px 3px 5px rgba(0, 0, 0, 0.5));
+}
+
+.planet.sun {
+  top: 50px;
+  width: 350px;
+  height: auto;
+  left: 5%;
+}
+
+.planet.jupiter {
+  top: 500px;
+  width: 250px;
+  height: auto;
+  right: 80px;
+}
+
+.planet.uranus {
+  top: 800px;
+  width: 200px;
+  height: auto;
+  left: 120px;
+}
+
+.planet.neptune {
+  top: 1200px;
+  width: 200px;
+  height: auto;
+  right: 50px;
+}
+
+.planet.earth {
+  top: 1550px;
+  width: 850px;
+  height: auto;
+  left: 5px;
+}
+
+.planet.moon {
+  top: 1690px;
+  left: 550px;
+  width: 80px;
+  height: auto;
+}
+
+/* ------------------------------ */
+/* Rocket Styles                  */
+/* ------------------------------ */
+.rocket {
+  position: fixed;
+  top: 80px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: url('/Users/dylantrenck/Desktop/Website/planets/rocket.png')
+    no-repeat center center;
+  background-size: contain;
+  transition: transform 0.1s linear;
+  z-index: 0;
+}
+
+/* ------------------------------ */
+/* Navbar Styles                  */
+/* ------------------------------ */
 .navbar {
-  background: var(--creme);
+  background: var(--bg-page);
   border-bottom: 1px solid var(--olive);
   position: fixed;
   width: 100%;
@@ -46,7 +209,8 @@ body {
   font-size: 1.5rem;
   font-weight: bold;
   text-decoration: none;
-  color: var(--brown);
+  /* Lighter color for contrast on the dark background */
+  color: var(--creme);
 }
 .nav-links {
   list-style: none;
@@ -57,7 +221,8 @@ body {
 }
 .nav-links a {
   text-decoration: none;
-  color: var(--brown);
+  /* Lighter text for the navbar */
+  color: var(--creme);
   transition: color 0.3s;
 }
 .nav-links a:hover {
@@ -73,21 +238,26 @@ body {
 .hamburger span {
   height: 3px;
   width: 25px;
-  background: var(--brown);
+  background: var(--creme);
   margin-bottom: 4px;
   border-radius: 5px;
 }
 
-/* Hero Section */
+/* ------------------------------ */
+/* Hero Section                   */
+/* ------------------------------ */
 #hero {
+  position: relative;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--creme);
-  padding-top: 60px; /* offset for fixed navbar */
+  background: transparent;
+  padding-top: 60px;
   text-align: center;
+  z-index: 2;
 }
+
 .hero-content h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
@@ -98,7 +268,13 @@ body {
   margin-bottom: 2rem;
   color: var(--brown);
 }
+.hero-content h1,
+.hero-content p {
+  text-align: center;
+}
 .btn {
+  margin-top: auto;
+  align-self: center;
   display: inline-block;
   background: var(--olive);
   color: #fff;
@@ -111,7 +287,83 @@ body {
   background: var(--olive-dark);
 }
 
-/* Section Styles */
+/* ------------------------------ */
+/* Skills Section Styles          */
+/* ------------------------------ */
+#skills {
+  padding: 4rem 0;
+  background: transparent;
+  z-index: 2;
+}
+#skills h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: var(--brown);
+}
+
+/* Grid layout for skills */
+.skills-grid {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.skill {
+  text-align: center;
+  width: 120px;
+  
+}
+/* Circular progress indicator */
+.progress-circle {
+  --percentage: 0;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--skill-color) calc(var(--percentage) * 3.6deg),
+    #ddd 0deg
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: 0 auto 1rem;
+  z-index: 2;
+}
+.progress-circle::before {
+  content: "";
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: var(--creme);
+  z-index: 2;
+}
+.progress-circle span {
+  position: relative;
+  font-weight: bold;
+  color: var(--brown);
+  text-align: center;
+  font-size: 0.9rem;
+  z-index: 2;
+}
+
+/* ------------------------------ */
+/* Text Box Style for Sections    */
+/* ------------------------------ */
+.textbox {
+  background: #fff;
+  padding: 1.5rem;
+  border: 1px solid var(--olive);
+  border-radius: 5px;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+/* ------------------------------ */
+/* Section Styles                 */
+/* ------------------------------ */
 section {
   padding: 4rem 0;
 }
@@ -122,7 +374,9 @@ section h2 {
   color: var(--brown);
 }
 
-/* Projects Grid */
+/* ------------------------------ */
+/* Projects Grid                  */
+/* ------------------------------ */
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -140,7 +394,9 @@ section h2 {
   transform: translateY(-5px);
 }
 
-/* Footer */
+/* ------------------------------ */
+/* Footer                         */
+/* ------------------------------ */
 footer {
   background: var(--brown);
   color: var(--creme);
@@ -148,12 +404,14 @@ footer {
   padding: 1.5rem 0;
 }
 
-/* Responsive Styles */
+/* ------------------------------ */
+/* Responsive Styles              */
+/* ------------------------------ */
 @media (max-width: 768px) {
   .nav-links {
     display: none;
     flex-direction: column;
-    background: var(--creme);
+    background: var(--bg-page);
     position: absolute;
     top: 60px;
     right: 0;
@@ -171,12 +429,153 @@ footer {
   }
 }
 
-.background-video {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;  /* Ensures the video covers the area without distortion */
-    z-index: -1;        /* Pushes the video behind all other elements */
-  }
+/* ------------------------------ */
+/* Floating Question Button       */
+/* ------------------------------ */
+.floating-question-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--olive);
+  color: #fff;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  font-size: 2rem;
+  z-index: 1000;
+  transition: background 0.3s;
+}
+.floating-question-button:hover {
+  background: var(--olive-dark);
+}
+.floating-linkedin-button {
+  position: fixed;
+  bottom: 90px;  /* Positioned above the question button (20px + 60px gap) */
+  right: 20px;
+  background: var(--olive);
+  color: #fff;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  font-size: 2rem;
+  z-index: 1000;
+  transition: background 0.3s;
+}
+.floating-linkedin-button:hover {
+  background: var(--olive-dark);
+}
+/* ------------------------------ */
+/* Modal Styles                   */
+/* ------------------------------ */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.modal-content {
+  background-color: var(--creme);
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid var(--olive);
+  width: 80%;
+  max-width: 400px;
+  border-radius: 5px;
+  position: relative;
+  text-align: center;
+}
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.5rem;
+  color: var(--brown);
+  cursor: pointer;
+}
+
+#contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+/* Input and textarea styling */
+#contact-form input
+{
+  border: 1px solid var(--olive);
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 1rem;
+  width: 100%;
+  min-height: 40px;
+}
+
+#contact-form textarea {
+  border: 1px solid var(--olive);
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+/* Button styling */
+#contact-form button {
+  border: none;
+  border-radius: 4px;
+  background: var(--olive);
+  color: var(--creme);
+  padding: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#contact-form button:hover {
+  background: var(--olive-dark);
+}
+
+
+
+/* ------------------------------ */
+/* Resume Download Button Styles  */
+/* ------------------------------ */
+.resume-section {
+  margin-top: 20px;
+  text-align: center;
+}
+.resume-download-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: var(--olive);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+.resume-download-btn:hover {
+  background: var(--olive-dark);
+}
+
+/* ------------------------------ */
+/* Main Content Container         */
+/* ------------------------------ */
+.content {
+  position: relative;
+  z-index: 1;
+}

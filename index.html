@@ -1,91 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dylan Trenck</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <!-- Header & Navigation -->
-  <video class="background-video" autoplay muted loop playsinline>
-    <source src="/Users/dylantrenck/Desktop/Website/Background.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-  
-  <header>
-    <nav class="navbar">
-      <div class="container">
-        <a href="index.html" class="logo">TrenckTech</a>
-        <ul class="nav-links">
-          <li><a href="#hero">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-        <div class="hamburger">
-          <span></span>
-          <span></span>
-          <span></span>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dylan Trenck</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script type="text/javascript">
+  (function(){
+    emailjs.init("MNO8g5jrIziB_MhZz"); // Replace YOUR_USER_ID with your EmailJS user ID
+  })();
+</script>
+
+  </head>
+  <body>
+    <!-- Background container for non-interactive elements (rocket, planets, shooting stars) -->
+     <div class="background-stars"></div>
+    <div class="rocket"></div>
+    <img
+      src="/Users/dylantrenck/Desktop/Website/planets/sun.png"
+      class="planet sun"
+      alt="Planet Sun"
+      data-speed="0.2"
+    />
+    <img
+      src="/Users/dylantrenck/Desktop/Website/planets/jupiter.png"
+      class="planet jupiter"
+      alt="Planet Jupiter"
+      data-speed="0.2"
+    />
+    <img
+      src="/Users/dylantrenck/Desktop/Website/planets/uranus.png"
+      class="planet uranus"
+      alt="Planet Uranus"
+      data-speed="0.2"
+    />
+    <img
+      src="/Users/dylantrenck/Desktop/Website/planets/neptune.png"
+      class="planet neptune"
+      alt="Planet Neptune"
+      data-speed="0.1"
+    />
+    <img
+      src="/Users/dylantrenck/Desktop/Website/planets/earth.png"
+      class="planet earth"
+      alt="Planet Earth"
+      data-speed="0.05"
+    />
+    <img
+      src="/Users/dylantrenck/Desktop/Website/planets/moon.png"
+      class="planet moon"
+      alt="Planet Moon"
+      data-speed="0.1"
+    />
+
+    <!-- Shooting Stars Container -->
+    <div class="shooting-stars">
+      <div class="shooting-star" style="animation-delay: 0s;"></div>
+      <div class="shooting-star" style="animation-delay: 3s;"></div>
+      <div class="shooting-star" style="animation-delay: 5s;"></div>
+     
+    </div>
+
+    <!-- Main content container (scrollable) -->
+    <div class="content">
+      <header>
+        <nav class="navbar">
+          <div class="container">
+            <a href="index.html" class="logo">
+              <img src="favicon.png" alt="Favicon" class="logo-icon" />
+              TrenckTech
+            </a>
+            <ul class="nav-links">
+              <li><a href="#hero">Home</a></li>
+              <li><a href="#skills">About</a></li>
+              <li><a href="#projects">Projects</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      <!-- Hero Section -->
+      <section id="hero">
+        <div class="container hero-content">
+          <h1>Hello, I'm Dylan Trenck.</h1>
+          <p>A Computer Scientist building cool things.</p>
+          <a href="#skills" class="btn">Take A Look At My Work</a>
+        </div>
+      </section>
+
+      <!-- Skills Section -->
+      <section id="skills">
+        <div class="container">
+          <h2>My Skills</h2>
+          <div class="skills-grid">
+            <div class="skill">
+              <div
+                class="progress-circle"
+                style="--percentage: 90; --skill-color: var(--olive);"
+              >
+                <span>Java<br>90%</span>
+              </div>
+              <p>Java</p>
+            </div>
+            <div class="skill">
+              <div
+                class="progress-circle"
+                style="--percentage: 85; --skill-color: var(--olive-dark);"
+              >
+                <span>Python<br>85%</span>
+              </div>
+              <p>Python</p>
+            </div>
+            <div class="skill">
+              <div
+                class="progress-circle"
+                style="--percentage:85; --skill-color: var(--brown);"
+              >
+                <span>C<br>85%</span>
+              </div>
+              <p>C</p>
+            </div>
+            <div class="skill">
+              <div
+                class="progress-circle"
+                style="--percentage: 75; --skill-color: #d35400;"
+              >
+                <span>COBOL<br>75%</span>
+              </div>
+              <p>COBOL</p>
+            </div>
+            <div class="skill">
+              <div
+                class="progress-circle"
+                style="--percentage: 90; --skill-color: #27ae60;"
+              >
+                <span>HTML/CSS<br>90%</span>
+              </div>
+              <p>HTML/CSS</p>
+            </div>
+            <div class="skill">
+              <div
+                class="progress-circle"
+                style="--percentage: 80; --skill-color: #e67e22;"
+              >
+                <span>JavaScript<br>80%</span>
+              </div>
+              <p>JavaScript</p>
+            </div>
+            <div class="skill">
+              <div
+                class="progress-circle"
+                style="--percentage: 75; --skill-color: #3498db;"
+              >
+                <span>SQL<br>75%</span>
+              </div>
+              <p>SQL</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Section -->
+      <section id="about">
+        <div class="container">
+          <h2>About Me</h2>
+          <div style="text-align: center;">
+            <div class="textbox">
+              <p>
+                My name is Dylan Trenck. I am a student at the University of North
+                Florida studying Computer Science with an expected graduation of
+                August 2026. I am passionate about solving hard problems, expanding
+                my breadth of knowledge and working with emerging technologies.
+                I enjoy playing guitar, training Mixed Martial Arts, or going to the
+                beach during my free time. I was originally born in Norwalk,
+                Connecticut and moved to Tampa, Florida in 2012. I have a specific
+                interest in Machine Vision and Machine Learning/AI. I will one day
+                work in the Space Industry developing software to put humanity on
+                another planet.
+              </p>
+
+              <div class="resume-section">
+                <a
+                  href="resume.pdf"
+                  download="Dylan_Trenck_Resume.pdf"
+                  class="resume-download-btn"
+                  >Download my Resume</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects Section -->
+      <section id="projects">
+        <div class="container">
+          <h2>Projects</h2>
+          <div class="projects-grid">
+            <div class="project">
+              <h3>Portfolio Website</h3>
+              <p>
+                This is a project I made to showcase some of my work and abilities.
+              </p>
+              <a href="index.html" class="btn">View Project</a>
+            </div>
+            <div class="project">
+              <h3>Clip.r</h3>
+              <p>
+                Clipr is a project I am currently working on. It is a machine
+                learning model that detects highlight moments in videos through
+                the analysis of audio and temporal attributes as well as
+                reinforced learning. Clipr then extracts these highlights as
+                short-form content to be repurposed for sites like Tiktok or
+                Instagram.
+              </p>
+              <a href="#" class="btn">View Project</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact">
+        <div class="container">
+          <h2>Contact</h2>
+          <div style="text-align: center;">
+            <div class="textbox">
+              <p>
+                I am currently seeking internships or opportunities for the Summer
+                of 2025 that might aid in my transition from Student to Software
+                Engineer. Please feel free to reach out via email using the button in the bottom right
+                or get connected with me on LinkedIn.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer>
+        <div class="container">
+          <p>&copy; 2025 TrenckTech. All rights reserved.</p>
+        </div>
+      </footer>
+
+    
+      <!-- Floating LinkedIn Button -->
+      <div id="linkedin-button" class="floating-linkedin-button">
+        <!-- Inline SVG for LinkedIn icon -->
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19 0h-14c-2.762 0-5 2.238-5 5v14c0 2.762 2.238 5 5 5h14c2.762 0 5-2.238 5-5v-14c0-2.762-2.238-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.3c-.966 0-1.75-.783-1.75-1.75s.784-1.75 1.75-1.75 1.75.783 1.75 1.75-.783 1.75-1.75 1.75zm13.5 10.3h-3v-4.5c0-1.079-.021-2.468-1.503-2.468-1.503 0-1.734 1.173-1.734 2.384v4.584h-3v-9h2.879v1.232h.041c.402-.762 1.385-1.563 2.848-1.563 3.044 0 3.605 2.005 3.605 4.611v4.72z"/>
+        </svg>
+      </div>
+
+      <!-- Floating Email Button -->
+      <div id="question-button" class="floating-question-button">
+       
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 4H4C2.897 4 2 4.897 2 6V18C2 19.103 2.897 20 4 20H20C21.103 20 22 19.103 22 18V6C22 4.897 21.103 4 20 4ZM20 8.382L12 13.333L4 8.382V6L12 11L20 6V8.382Z" />
+        </svg>
+      </div>
+
+      <!-- Modal for Question -->
+      <div id="question-modal" class="modal">
+        <div class="modal-content">
+          <span class="close-button">&times;</span>
+          <h3>Email Me</h3>
+          <form id="contact-form">
+            <input type="email" name="reply_to" placeholder="Your Email" required />
+            <textarea name="message" placeholder="Your Message" required></textarea>
+            <button type="btn">Send E-Mail</button>
+          </form>
         </div>
       </div>
-    </nav>
-  </header>
-
-  <!-- Hero Section -->
-  <section id="hero">
-    <div class="container hero-content">
-      <h1>Hello, I'm Dylan Trenck.</h1>
-      <p>A Computer Scientist building cool things.</p>
-      <a href="#projects" class="btn">Take A Look At My Work</a>
+s      
     </div>
-  </section>
+    <!-- end .content -->
 
-  <!-- About Section -->
-  <section id="about">
-    <div class="container">
-      <h2>About Me</h2>
-      <p>
-        My name is Dylan Trenck. I am a student at the University of North Floriida studying Computer Science. I am passionate about building software and learning new technologies.   </p>
-    </div>
-  </section>
-
-  <!-- Projects Section -->
-  <section id="projects">
-    <div class="container">
-      <h2>Projects</h2>
-      <div class="projects-grid">
-        <div class="project">
-          <h3>Portfolio Website</h3>
-          <p>This is a project I made to showcase some of my work and abilities. </p>
-          <a href="index.html" class="btn">View Project</a>
-        </div>
-        <div class="project">
-          <h3>Project Two</h3>
-          <p>A short description of your project.</p>
-          <a href="#" class="btn">View Project</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact">
-    <div class="container">
-      <h2>Contact</h2>
-      <p>
-        Get in touch via email at <a href="mailto:dylan@trencktech.com">dylan@trencktech.com</a>.
-      </p>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 Your Name. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
