@@ -179,7 +179,7 @@ document.addEventListener("DOMContentLoaded", function () {
   contactForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', contactForm)
+    emailjs.sendForm('trencktech', 'PW1', contactForm)
       .then(function() {
         alert("Your message has been sent!");
         modal.style.display = "none";
