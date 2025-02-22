@@ -180,7 +180,7 @@ h1, h2, h4, h5, h6,
   right: 30px;
   width: 50px;
   height: 50px;
-  background: url('/Users/dylantrenck/Desktop/Website/planets/rocket.png')
+  background: url('planets/rocket.png')
     no-repeat center center;
   background-size: contain;
   transition: transform 0.1s linear;
