@@ -193,6 +193,6 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", function () {
   const linkedinButton = document.getElementById("linkedin-button");
   linkedinButton.addEventListener("click", function () {
-    window.open("www.linkedin.com/in/dylan-trenck", "_blank");
+    window.open("https://www.linkedin.com/in/dylan-trenck", "_blank");
   });
 });
