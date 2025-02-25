@@ -137,7 +137,7 @@ h1, h2, h4, h5, h6,
   height: 40px;
   pointer-events: none;
   filter: drop-shadow(3px 3px 5px rgba(0, 0, 0, 0.5));
-  animation: float 6s ease-in-out infinite, rotate 20s linear infinite;
+  animation: float 7s ease-in-out infinite, rotate 40s linear infinite;
 
 }
 
