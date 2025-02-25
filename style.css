@@ -47,9 +47,7 @@ body {
 
 h1, h2, h4, h5, h6,
 .hero-content h1 {
-  /* Apply a 1px white stroke */
   -webkit-text-stroke: 2px white;
-
 }
 
 /* ------------------------------ */
@@ -62,7 +60,7 @@ h1, h2, h4, h5, h6,
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -2; /* Behind shooting stars (which are at -1) and planets */
+  z-index: -2;
   pointer-events: none;
   overflow: hidden;
 }
@@ -73,6 +71,7 @@ h1, h2, h4, h5, h6,
   border-radius: 50%;
   opacity: 0.8;
 }
+
 /* ------------------------------ */
 /* Shooting Stars                 */
 /* ------------------------------ */
@@ -99,17 +98,17 @@ h1, h2, h4, h5, h6,
   animation: shootingStarAnimation 4s ease-in-out infinite;
 }
 
-/* Animation: from middle left to bottom right */
 @keyframes shootingStarAnimation {
   0% {
     opacity: 0;
-    transform: translate(0, 0)
+    transform: translate(0, 0);
   }
   10% {
     opacity: 1;
   }
   50% {
-    opacity: 1;  }
+    opacity: 1;
+  }
   100% {
     opacity: 0;
     transform: translate(100vw, 100vh);
@@ -180,8 +179,7 @@ h1, h2, h4, h5, h6,
   right: 30px;
   width: 50px;
   height: 50px;
-  background: url('planets/rocket.png')
-    no-repeat center center;
+  background: url('planets/rocket.png') no-repeat center center;
   background-size: contain;
   transition: transform 0.1s linear;
   z-index: 0;
@@ -209,7 +207,6 @@ h1, h2, h4, h5, h6,
   font-size: 1.5rem;
   font-weight: bold;
   text-decoration: none;
-  /* Lighter color for contrast on the dark background */
   color: var(--creme);
 }
 .nav-links {
@@ -221,7 +218,6 @@ h1, h2, h4, h5, h6,
 }
 .nav-links a {
   text-decoration: none;
-  /* Lighter text for the navbar */
   color: var(--creme);
   transition: color 0.3s;
 }
@@ -312,7 +308,6 @@ h1, h2, h4, h5, h6,
 .skill {
   text-align: center;
   width: 120px;
-  
 }
 /* Circular progress indicator */
 .progress-circle {
@@ -427,6 +422,38 @@ footer {
   .nav-links.active {
     display: flex;
   }
+
+  /* Responsive Planet Adjustments */
+  .planet.sun {
+    top: 30px;
+    width: 50vw;
+    left: 5%;
+  }
+  .planet.jupiter {
+    top: 300px;
+    width: 40vw;
+    right: 5%;
+  }
+  .planet.uranus {
+    top: 500px;
+    width: 35vw;
+    left: 5%;
+  }
+  .planet.neptune {
+    top: 700px;
+    width: 35vw;
+    right: 5%;
+  }
+  .planet.earth {
+    top: 900px;
+    width: 90vw;
+    left: 5%;
+  }
+  .planet.moon {
+    top: 1000px;
+    width: 15vw;
+    left: 60%;
+  }
 }
 
 /* ------------------------------ */
@@ -455,7 +482,7 @@ footer {
 }
 .floating-linkedin-button {
   position: fixed;
-  bottom: 90px;  /* Positioned above the question button (20px + 60px gap) */
+  bottom: 90px;
   right: 20px;
   background: var(--olive);
   color: #fff;
@@ -474,6 +501,7 @@ footer {
 .floating-linkedin-button:hover {
   background: var(--olive-dark);
 }
+
 /* ------------------------------ */
 /* Modal Styles                   */
 /* ------------------------------ */
@@ -516,8 +544,7 @@ footer {
 }
 
 /* Input and textarea styling */
-#contact-form input
-{
+#contact-form input {
   border: 1px solid var(--olive);
   border-radius: 4px;
   padding: 10px;
@@ -549,8 +576,6 @@ footer {
 #contact-form button:hover {
   background: var(--olive-dark);
 }
-
-
 
 /* ------------------------------ */
 /* Resume Download Button Styles  */
