@@ -98,6 +98,17 @@ h1, h2, h4, h5, h6,
   animation: shootingStarAnimation 4s ease-in-out infinite;
 }
 
+@keyframes float {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 @keyframes shootingStarAnimation {
   0% {
     opacity: 0;
@@ -126,6 +137,8 @@ h1, h2, h4, h5, h6,
   height: 40px;
   pointer-events: none;
   filter: drop-shadow(3px 3px 5px rgba(0, 0, 0, 0.5));
+  animation: float 6s ease-in-out infinite, rotate 20s linear infinite;
+
 }
 
 .planet.sun {
