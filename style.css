@@ -147,7 +147,7 @@ h1, h2, h4, h5, h6,
   filter:
     drop-shadow(0 0 22px rgba(255, 255, 255, 0.25))
     drop-shadow(0 10px 25px rgba(0, 0, 0, 0.75));
-  animation: float 7s ease-in-out infinite, rotate 40s linear infinite;
+  animation: float 7s ease-in-out infinite, rotate 80s linear infinite;
 
 }
 
