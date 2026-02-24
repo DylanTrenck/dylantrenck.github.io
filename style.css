@@ -222,6 +222,16 @@ h1, h2, h4, h5, h6,
   text-decoration: none;
   color: var(--creme);
 }
+.site-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--creme);
+  position: fixed;
+  top: 1rem;
+  left: 2rem;
+  z-index: 100;
+}
 .nav-links {
   list-style: none;
   display: flex;
