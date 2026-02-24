@@ -52,9 +52,18 @@ body {
   margin-right: 0.5rem;
 }
 
-h1, h2, h4, h5, h6,
+h1, h4, h5, h6,
 .hero-content h1 {
   -webkit-text-stroke: 2px white;
+}
+
+/* Section headers without stroke - using glow effect instead */
+section h2 {
+  -webkit-text-stroke: none;
+  text-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.3),
+    0 0 20px rgba(255, 255, 255, 0.2),
+    0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* ------------------------------ */
