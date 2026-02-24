@@ -87,31 +87,55 @@
         <div class="container">
           <h2>My Skills</h2>
           <div class="constellation-container">
-            <svg class="constellation-lines" viewBox="0 0 1200 750" preserveAspectRatio="xMidYMid meet">
-              <!-- Lines connecting related skills -->
-              <!-- Backend Constellation -->
-              <line x1="200" y1="180" x2="300" y2="160" class="constellation-line" data-constellation="backend"/>
-              <line x1="300" y1="160" x2="400" y2="180" class="constellation-line" data-constellation="backend"/>
-              <line x1="400" y1="180" x2="500" y2="200" class="constellation-line" data-constellation="backend"/>
+            <svg class="constellation-lines" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid meet">
+              <!-- Backend Constellation - Gear Shape (Octagon) -->
+              <line x1="300" y1="150" x2="350" y2="120" class="constellation-line" data-constellation="backend"/>
+              <line x1="350" y1="120" x2="450" y2="120" class="constellation-line" data-constellation="backend"/>
+              <line x1="450" y1="120" x2="500" y2="150" class="constellation-line" data-constellation="backend"/>
+              <line x1="500" y1="150" x2="500" y2="200" class="constellation-line" data-constellation="backend"/>
+              <line x1="500" y1="200" x2="450" y2="230" class="constellation-line" data-constellation="backend"/>
+              <line x1="450" y1="230" x2="350" y2="230" class="constellation-line" data-constellation="backend"/>
+              <line x1="350" y1="230" x2="300" y2="200" class="constellation-line" data-constellation="backend"/>
+              <line x1="300" y1="200" x2="300" y2="150" class="constellation-line" data-constellation="backend"/>
+              <line x1="300" y1="150" x2="400" y2="175" class="constellation-line" data-constellation="backend"/>
+              <line x1="400" y1="175" x2="500" y2="150" class="constellation-line" data-constellation="backend"/>
+              <line x1="400" y1="175" x2="450" y2="230" class="constellation-line" data-constellation="backend"/>
+              <line x1="400" y1="175" x2="350" y2="230" class="constellation-line" data-constellation="backend"/>
               
-              <!-- Frontend Constellation -->
-              <line x1="700" y1="180" x2="800" y2="160" class="constellation-line" data-constellation="frontend"/>
-              <line x1="800" y1="160" x2="900" y2="180" class="constellation-line" data-constellation="frontend"/>
+              <!-- Frontend Constellation - Browser Window Shape (Rectangle) -->
+              <line x1="700" y1="120" x2="900" y2="120" class="constellation-line" data-constellation="frontend"/>
+              <line x1="900" y1="120" x2="900" y2="220" class="constellation-line" data-constellation="frontend"/>
+              <line x1="900" y1="220" x2="700" y2="220" class="constellation-line" data-constellation="frontend"/>
+              <line x1="700" y1="220" x2="700" y2="120" class="constellation-line" data-constellation="frontend"/>
+              <line x1="700" y1="120" x2="800" y2="170" class="constellation-line" data-constellation="frontend"/>
+              <line x1="800" y1="170" x2="900" y2="120" class="constellation-line" data-constellation="frontend"/>
+              <line x1="800" y1="170" x2="900" y2="220" class="constellation-line" data-constellation="frontend"/>
+              <line x1="800" y1="170" x2="700" y2="220" class="constellation-line" data-constellation="frontend"/>
               
-              <!-- Database Constellation -->
-              <line x1="750" y1="380" x2="850" y2="360" class="constellation-line" data-constellation="database"/>
+              <!-- Database Constellation - Stack Shape (Pyramid) -->
+              <line x1="800" y1="350" x2="900" y2="330" class="constellation-line" data-constellation="database"/>
+              <line x1="900" y1="330" x2="950" y2="350" class="constellation-line" data-constellation="database"/>
+              <line x1="950" y1="350" x2="900" y2="370" class="constellation-line" data-constellation="database"/>
+              <line x1="900" y1="370" x2="800" y2="350" class="constellation-line" data-constellation="database"/>
+              <line x1="800" y1="350" x2="875" y2="330" class="constellation-line" data-constellation="database"/>
+              <line x1="875" y1="330" x2="950" y2="350" class="constellation-line" data-constellation="database"/>
               
-              <!-- Tools & Libraries Constellation -->
-              <line x1="200" y1="550" x2="300" y2="530" class="constellation-line" data-constellation="tools"/>
-              <line x1="300" y1="530" x2="400" y2="550" class="constellation-line" data-constellation="tools"/>
-              <line x1="400" y1="550" x2="500" y2="530" class="constellation-line" data-constellation="tools"/>
-              <line x1="500" y1="530" x2="600" y2="550" class="constellation-line" data-constellation="tools"/>
-              <line x1="600" y1="550" x2="700" y2="530" class="constellation-line" data-constellation="tools"/>
+              <!-- Tools & Libraries Constellation - Wrench/Tool Shape -->
+              <line x1="200" y1="600" x2="300" y2="580" class="constellation-line" data-constellation="tools"/>
+              <line x1="300" y1="580" x2="400" y2="600" class="constellation-line" data-constellation="tools"/>
+              <line x1="400" y1="600" x2="500" y2="580" class="constellation-line" data-constellation="tools"/>
+              <line x1="500" y1="580" x2="600" y2="600" class="constellation-line" data-constellation="tools"/>
+              <line x1="200" y1="600" x2="250" y2="620" class="constellation-line" data-constellation="tools"/>
+              <line x1="250" y1="620" x2="300" y2="600" class="constellation-line" data-constellation="tools"/>
+              <line x1="400" y1="600" x2="450" y2="620" class="constellation-line" data-constellation="tools"/>
+              <line x1="450" y1="620" x2="500" y2="600" class="constellation-line" data-constellation="tools"/>
             </svg>
             
             <!-- Constellation Groups -->
             <div class="constellation-group" data-constellation="backend">
-              <div class="star" data-skill="Java" style="left: 16.5%; top: 24%;" data-level="90" data-years="4" data-projects="8">
+              <div class="constellation-label" style="left: 33.3%; top: 12%;">The Server</div>
+              <!-- Gear shape (octagon) -->
+              <div class="star" data-skill="Java" style="left: 25%; top: 18.75%;" data-level="90" data-years="4" data-projects="8">
                 <div class="star-glow"></div>
                 <div class="star-core"></div>
                 <div class="star-label">Java</div>
@@ -122,7 +146,7 @@
                   Projects: 8+
                 </div>
               </div>
-              <div class="star" data-skill="Python" style="left: 25%; top: 21%;" data-level="85" data-years="3" data-projects="12">
+              <div class="star" data-skill="Python" style="left: 29.2%; top: 15%;" data-level="85" data-years="3" data-projects="12">
                 <div class="star-glow"></div>
                 <div class="star-core"></div>
                 <div class="star-label">Python</div>
@@ -133,7 +157,7 @@
                   Projects: 12+
                 </div>
               </div>
-              <div class="star" data-skill="C" style="left: 33.5%; top: 24%;" data-level="85" data-years="3" data-projects="6">
+              <div class="star" data-skill="C" style="left: 37.5%; top: 15%;" data-level="85" data-years="3" data-projects="6">
                 <div class="star-glow"></div>
                 <div class="star-core"></div>
                 <div class="star-label">C</div>
@@ -144,7 +168,7 @@
                   Projects: 6+
                 </div>
               </div>
-              <div class="star" data-skill="COBOL" style="left: 41.5%; top: 27%;" data-level="75" data-years="2" data-projects="3">
+              <div class="star" data-skill="COBOL" style="left: 41.7%; top: 18.75%;" data-level="75" data-years="2" data-projects="3">
                 <div class="star-glow"></div>
                 <div class="star-core"></div>
                 <div class="star-label">COBOL</div>
@@ -155,10 +179,16 @@
                   Projects: 3+
                 </div>
               </div>
+              <div class="star" data-skill="center" style="left: 33.3%; top: 21.875%;" data-level="0" data-years="0" data-projects="0">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+              </div>
             </div>
             
             <div class="constellation-group" data-constellation="frontend">
-              <div class="star" data-skill="HTML/CSS" style="left: 58.5%; top: 24%;" data-level="90" data-years="4" data-projects="15">
+              <div class="constellation-label" style="left: 66.7%; top: 12%;">The Interface</div>
+              <!-- Browser window shape (rectangle) -->
+              <div class="star" data-skill="HTML/CSS" style="left: 58.3%; top: 15%;" data-level="90" data-years="4" data-projects="15">
                 <div class="star-glow"></div>
                 <div class="star-core"></div>
                 <div class="star-label">HTML/CSS</div>
@@ -169,7 +199,7 @@
                   Projects: 15+
                 </div>
               </div>
-              <div class="star" data-skill="JavaScript" style="left: 66.5%; top: 21%;" data-level="80" data-years="3" data-projects="10">
+              <div class="star" data-skill="JavaScript" style="left: 75%; top: 15%;" data-level="80" data-years="3" data-projects="10">
                 <div class="star-glow"></div>
                 <div class="star-core"></div>
                 <div class="star-label">JavaScript</div>
@@ -180,10 +210,16 @@
                   Projects: 10+
                 </div>
               </div>
+              <div class="star" data-skill="center-frontend" style="left: 66.7%; top: 21.25%;" data-level="0" data-years="0" data-projects="0">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+              </div>
             </div>
             
             <div class="constellation-group" data-constellation="database">
-              <div class="star" data-skill="SQL" style="left: 62.5%; top: 48%;" data-level="75" data-years="3" data-projects="7">
+              <div class="constellation-label" style="left: 79.2%; top: 40%;">The Vault</div>
+              <!-- Stack shape (pyramid) -->
+              <div class="star" data-skill="SQL" style="left: 66.7%; top: 43.75%;" data-level="75" data-years="3" data-projects="7">
                 <div class="star-glow"></div>
                 <div class="star-core"></div>
                 <div class="star-label">SQL</div>
@@ -194,10 +230,16 @@
                   Projects: 7+
                 </div>
               </div>
+              <div class="star" data-skill="center-db" style="left: 79.2%; top: 41.25%;" data-level="0" data-years="0" data-projects="0">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+              </div>
             </div>
             
             <div class="constellation-group" data-constellation="tools">
-              <div class="star" data-skill="OpenCV" style="left: 16.5%; top: 73%;" data-level="80" data-years="2" data-projects="5">
+              <div class="constellation-label" style="left: 33.3%; top: 70%;">The Arsenal</div>
+              <!-- Wrench/tool shape: horizontal line with vertical connections -->
+              <div class="star" data-skill="OpenCV" style="left: 16.7%; top: 75%;" data-level="80" data-years="2" data-projects="5">
                 <div class="star-glow"></div>
                 <div class="star-core"></div>
                 <div class="star-label">OpenCV</div>
@@ -208,7 +250,7 @@
                   Projects: 5+
                 </div>
               </div>
-              <div class="star" data-skill="TensorFlow" style="left: 25%; top: 71%;" data-level="75" data-years="2" data-projects="4">
+              <div class="star" data-skill="TensorFlow" style="left: 25%; top: 72.5%;" data-level="75" data-years="2" data-projects="4">
                 <div class="star-glow"></div>
                 <div class="star-core"></div>
                 <div class="star-label">TensorFlow</div>
@@ -219,7 +261,7 @@
                   Projects: 4+
                 </div>
               </div>
-              <div class="star" data-skill="RAG" style="left: 33.5%; top: 73%;" data-level="70" data-years="1" data-projects="2">
+              <div class="star" data-skill="RAG" style="left: 33.3%; top: 75%;" data-level="70" data-years="1" data-projects="2">
                 <div class="star-glow"></div>
                 <div class="star-core"></div>
                 <div class="star-label">RAG</div>
@@ -230,7 +272,7 @@
                   Projects: 2+
                 </div>
               </div>
-              <div class="star" data-skill="PyTorch" style="left: 41.5%; top: 71%;" data-level="70" data-years="1" data-projects="3">
+              <div class="star" data-skill="PyTorch" style="left: 41.7%; top: 72.5%;" data-level="70" data-years="1" data-projects="3">
                 <div class="star-glow"></div>
                 <div class="star-core"></div>
                 <div class="star-label">PyTorch</div>
@@ -241,7 +283,7 @@
                   Projects: 3+
                 </div>
               </div>
-              <div class="star" data-skill="scikit-learn" style="left: 50%; top: 73%;" data-level="75" data-years="2" data-projects="6">
+              <div class="star" data-skill="scikit-learn" style="left: 50%; top: 75%;" data-level="75" data-years="2" data-projects="6">
                 <div class="star-glow"></div>
                 <div class="star-core"></div>
                 <div class="star-label">scikit-learn</div>
