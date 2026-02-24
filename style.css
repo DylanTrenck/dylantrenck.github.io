@@ -341,58 +341,187 @@ section h2 {
   padding: 4rem 0;
   background: transparent;
   z-index: 2;
+  min-height: 700px;
 }
 #skills h2 {
   text-align: center;
   font-size: 2.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   color: #fff;
 }
 
-/* Grid layout for skills */
-.skills-grid {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-}
-.skill {
-  text-align: center;
-  width: 120px;
-}
-/* Circular progress indicator */
-.progress-circle {
-  --percentage: 0;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: conic-gradient(
-    var(--skill-color) calc(var(--percentage) * 3.6deg),
-    #ddd 0deg
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* Constellation Container */
+.constellation-container {
   position: relative;
-  margin: 0 auto 1rem;
-  z-index: 2;
+  width: 100%;
+  max-width: 1000px;
+  height: 700px;
+  margin: 0 auto;
+  overflow: visible;
 }
-.progress-circle::before {
-  content: "";
+
+/* Constellation Lines SVG */
+.constellation-lines {
   position: absolute;
-  width: 90px;
-  height: 90px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.constellation-line {
+  stroke: var(--olive);
+  stroke-width: 2;
+  stroke-opacity: 0.3;
+  transition: stroke-opacity 0.3s ease;
+}
+
+.constellation-group:hover ~ .constellation-lines .constellation-line[data-constellation],
+.constellation-group:hover .constellation-lines .constellation-line[data-constellation] {
+  stroke-opacity: 0.6;
+}
+
+/* Star Elements */
+.star {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.3s ease;
+}
+
+.star:hover {
+  transform: translate(-50%, -50%) scale(1.3);
+  z-index: 20;
+}
+
+.star-glow {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: twinkle 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.star-core {
+  position: absolute;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: var(--creme);
-  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.8),
+    0 0 20px rgba(255, 255, 255, 0.5),
+    0 0 30px rgba(255, 255, 255, 0.3);
+  pointer-events: none;
 }
-.progress-circle span {
-  position: relative;
+
+.star-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--creme);
+  font-size: 0.7rem;
   font-weight: bold;
-  color: var(--olive-dark);
-  text-align: center;
-  font-size: 0.9rem;
-  z-index: 2;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  pointer-events: none;
+  white-space: nowrap;
+  margin-top: 35px;
+}
+
+.star-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  background: rgba(58, 47, 47, 0.95);
+  color: var(--creme);
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--olive);
+  font-size: 0.85rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 100;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  margin-bottom: 10px;
+}
+
+.star-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: rgba(58, 47, 47, 0.95);
+}
+
+.star:hover .star-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.star:hover .star-glow {
+  animation: twinkle 0.5s ease-in-out infinite;
+}
+
+.star:hover .star-core {
+  box-shadow: 
+    0 0 15px rgba(255, 255, 255, 1),
+    0 0 30px rgba(255, 255, 255, 0.8),
+    0 0 45px rgba(255, 255, 255, 0.5);
+}
+
+/* Constellation Group Hover Effect */
+.constellation-group:hover .star {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.constellation-group:hover .constellation-line {
+  stroke-opacity: 0.5;
+}
+
+/* Twinkle Animation */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .constellation-container {
+    height: 600px;
+    max-width: 100%;
+  }
+  
+  .star-label {
+    font-size: 0.6rem;
+  }
+  
+  .star-tooltip {
+    font-size: 0.75rem;
+    padding: 0.6rem 0.8rem;
+  }
 }
 
 /* ------------------------------ */

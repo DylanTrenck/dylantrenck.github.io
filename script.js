@@ -1,10 +1,47 @@
-// Hamburger menu toggle
+// Constellation interactivity
 document.addEventListener('DOMContentLoaded', () => {
-  const hamburger = document.querySelector('.hamburger');
-  const navLinks = document.querySelector('.nav-links');
-
-  hamburger.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
+  const stars = document.querySelectorAll('.star');
+  const constellationLines = document.querySelectorAll('.constellation-line');
+  const constellationGroups = document.querySelectorAll('.constellation-group');
+  
+  // Highlight constellation lines when hovering over stars
+  stars.forEach(star => {
+    star.addEventListener('mouseenter', () => {
+      const constellation = star.closest('.constellation-group')?.getAttribute('data-constellation');
+      if (constellation) {
+        constellationLines.forEach(line => {
+          if (line.getAttribute('data-constellation') === constellation) {
+            line.style.strokeOpacity = '0.8';
+            line.style.strokeWidth = '3';
+          }
+        });
+      }
+    });
+    
+    star.addEventListener('mouseleave', () => {
+      constellationLines.forEach(line => {
+        line.style.strokeOpacity = '0.3';
+        line.style.strokeWidth = '2';
+      });
+    });
+  });
+  
+  // Highlight entire constellation group on hover
+  constellationGroups.forEach(group => {
+    group.addEventListener('mouseenter', () => {
+      const constellation = group.getAttribute('data-constellation');
+      constellationLines.forEach(line => {
+        if (line.getAttribute('data-constellation') === constellation) {
+          line.style.strokeOpacity = '0.6';
+        }
+      });
+    });
+    
+    group.addEventListener('mouseleave', () => {
+      constellationLines.forEach(line => {
+        line.style.strokeOpacity = '0.3';
+      });
+    });
   });
 });
 

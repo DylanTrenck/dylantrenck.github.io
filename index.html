@@ -86,69 +86,175 @@
       <section id="skills">
         <div class="container">
           <h2>My Skills</h2>
-          <div class="skills-grid">
-            <div class="skill">
-              <div
-                class="progress-circle"
-                style="--percentage: 90; --skill-color: var(--olive);"
-              >
-                <span>Java<br>90%</span>
+          <div class="constellation-container">
+            <svg class="constellation-lines" viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid meet">
+              <!-- Lines connecting related skills -->
+              <!-- Backend Constellation -->
+              <line x1="150" y1="200" x2="250" y2="180" class="constellation-line" data-constellation="backend"/>
+              <line x1="250" y1="180" x2="350" y2="200" class="constellation-line" data-constellation="backend"/>
+              <line x1="350" y1="200" x2="450" y2="220" class="constellation-line" data-constellation="backend"/>
+              
+              <!-- Frontend Constellation -->
+              <line x1="550" y1="200" x2="650" y2="180" class="constellation-line" data-constellation="frontend"/>
+              <line x1="650" y1="180" x2="750" y2="200" class="constellation-line" data-constellation="frontend"/>
+              
+              <!-- Systems Constellation -->
+              <line x1="200" y1="400" x2="300" y2="380" class="constellation-line" data-constellation="systems"/>
+              <line x1="300" y1="380" x2="400" y2="400" class="constellation-line" data-constellation="systems"/>
+              
+              <!-- Database Constellation -->
+              <line x1="600" y1="400" x2="700" y2="380" class="constellation-line" data-constellation="database"/>
+              
+              <!-- Tools & Libraries Constellation -->
+              <line x1="200" y1="500" x2="300" y2="480" class="constellation-line" data-constellation="tools"/>
+              <line x1="300" y1="480" x2="400" y2="500" class="constellation-line" data-constellation="tools"/>
+              <line x1="400" y1="500" x2="500" y2="480" class="constellation-line" data-constellation="tools"/>
+              <line x1="500" y1="480" x2="600" y2="500" class="constellation-line" data-constellation="tools"/>
+            </svg>
+            
+            <!-- Constellation Groups -->
+            <div class="constellation-group" data-constellation="backend">
+              <div class="star" data-skill="Java" style="left: 15%; top: 33%;" data-level="90" data-years="4" data-projects="8">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+                <div class="star-label">Java</div>
+                <div class="star-tooltip">
+                  <strong>Java</strong><br>
+                  Level: Expert (90%)<br>
+                  Experience: 4 years<br>
+                  Projects: 8+
+                </div>
               </div>
-              <p>Java</p>
+              <div class="star" data-skill="Python" style="left: 25%; top: 30%;" data-level="85" data-years="3" data-projects="12">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+                <div class="star-label">Python</div>
+                <div class="star-tooltip">
+                  <strong>Python</strong><br>
+                  Level: Advanced (85%)<br>
+                  Experience: 3 years<br>
+                  Projects: 12+
+                </div>
+              </div>
+              <div class="star" data-skill="C" style="left: 35%; top: 33%;" data-level="85" data-years="3" data-projects="6">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+                <div class="star-label">C</div>
+                <div class="star-tooltip">
+                  <strong>C</strong><br>
+                  Level: Advanced (85%)<br>
+                  Experience: 3 years<br>
+                  Projects: 6+
+                </div>
+              </div>
+              <div class="star" data-skill="COBOL" style="left: 45%; top: 37%;" data-level="75" data-years="2" data-projects="3">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+                <div class="star-label">COBOL</div>
+                <div class="star-tooltip">
+                  <strong>COBOL</strong><br>
+                  Level: Proficient (75%)<br>
+                  Experience: 2 years<br>
+                  Projects: 3+
+                </div>
+              </div>
             </div>
-            <div class="skill">
-              <div
-                class="progress-circle"
-                style="--percentage: 85; --skill-color: var(--olive-dark);"
-              >
-                <span>Python<br>85%</span>
+            
+            <div class="constellation-group" data-constellation="frontend">
+              <div class="star" data-skill="HTML/CSS" style="left: 55%; top: 33%;" data-level="90" data-years="4" data-projects="15">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+                <div class="star-label">HTML/CSS</div>
+                <div class="star-tooltip">
+                  <strong>HTML/CSS</strong><br>
+                  Level: Expert (90%)<br>
+                  Experience: 4 years<br>
+                  Projects: 15+
+                </div>
               </div>
-              <p>Python</p>
+              <div class="star" data-skill="JavaScript" style="left: 65%; top: 30%;" data-level="80" data-years="3" data-projects="10">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+                <div class="star-label">JavaScript</div>
+                <div class="star-tooltip">
+                  <strong>JavaScript</strong><br>
+                  Level: Advanced (80%)<br>
+                  Experience: 3 years<br>
+                  Projects: 10+
+                </div>
+              </div>
             </div>
-            <div class="skill">
-              <div
-                class="progress-circle"
-                style="--percentage:85; --skill-color: var(--brown);"
-              >
-                <span>C<br>85%</span>
+            
+            <div class="constellation-group" data-constellation="database">
+              <div class="star" data-skill="SQL" style="left: 60%; top: 63%;" data-level="75" data-years="3" data-projects="7">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+                <div class="star-label">SQL</div>
+                <div class="star-tooltip">
+                  <strong>SQL</strong><br>
+                  Level: Proficient (75%)<br>
+                  Experience: 3 years<br>
+                  Projects: 7+
+                </div>
               </div>
-              <p>C</p>
             </div>
-            <div class="skill">
-              <div
-                class="progress-circle"
-                style="--percentage: 75; --skill-color: #d35400;"
-              >
-                <span>COBOL<br>75%</span>
+            
+            <div class="constellation-group" data-constellation="tools">
+              <div class="star" data-skill="OpenCV" style="left: 20%; top: 83%;" data-level="80" data-years="2" data-projects="5">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+                <div class="star-label">OpenCV</div>
+                <div class="star-tooltip">
+                  <strong>OpenCV</strong><br>
+                  Level: Advanced (80%)<br>
+                  Experience: 2 years<br>
+                  Projects: 5+
+                </div>
               </div>
-              <p>COBOL</p>
-            </div>
-            <div class="skill">
-              <div
-                class="progress-circle"
-                style="--percentage: 90; --skill-color: #27ae60;"
-              >
-                <span>HTML/CSS<br>90%</span>
+              <div class="star" data-skill="TensorFlow" style="left: 30%; top: 80%;" data-level="75" data-years="2" data-projects="4">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+                <div class="star-label">TensorFlow</div>
+                <div class="star-tooltip">
+                  <strong>TensorFlow</strong><br>
+                  Level: Proficient (75%)<br>
+                  Experience: 2 years<br>
+                  Projects: 4+
+                </div>
               </div>
-              <p>HTML/CSS</p>
-            </div>
-            <div class="skill">
-              <div
-                class="progress-circle"
-                style="--percentage: 80; --skill-color: #e67e22;"
-              >
-                <span>JavaScript<br>80%</span>
+              <div class="star" data-skill="RAG" style="left: 40%; top: 83%;" data-level="70" data-years="1" data-projects="2">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+                <div class="star-label">RAG</div>
+                <div class="star-tooltip">
+                  <strong>RAG</strong><br>
+                  Level: Intermediate (70%)<br>
+                  Experience: 1 year<br>
+                  Projects: 2+
+                </div>
               </div>
-              <p>JavaScript</p>
-            </div>
-            <div class="skill">
-              <div
-                class="progress-circle"
-                style="--percentage: 75; --skill-color: #3498db;"
-              >
-                <span>SQL<br>75%</span>
+              <div class="star" data-skill="PyTorch" style="left: 50%; top: 80%;" data-level="70" data-years="1" data-projects="3">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+                <div class="star-label">PyTorch</div>
+                <div class="star-tooltip">
+                  <strong>PyTorch</strong><br>
+                  Level: Intermediate (70%)<br>
+                  Experience: 1 year<br>
+                  Projects: 3+
+                </div>
               </div>
-              <p>SQL</p>
+              <div class="star" data-skill="scikit-learn" style="left: 60%; top: 83%;" data-level="75" data-years="2" data-projects="6">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+                <div class="star-label">scikit-learn</div>
+                <div class="star-tooltip">
+                  <strong>scikit-learn</strong><br>
+                  Level: Proficient (75%)<br>
+                  Experience: 2 years<br>
+                  Projects: 6+
+                </div>
+              </div>
             </div>
           </div>
         </div>
