@@ -52,14 +52,14 @@ body {
   margin-right: 0.5rem;
 }
 
-h1, h4, h5, h6,
-.hero-content h1 {
+h1, h4, h5, h6 {
   -webkit-text-stroke: 2px white;
 }
 
 /* Section headers without stroke - using glow effect instead */
 section h2 {
   -webkit-text-stroke: none;
+  color: #fff;
   text-shadow: 
     0 0 10px rgba(255, 255, 255, 0.3),
     0 0 20px rgba(255, 255, 255, 0.2),
@@ -289,7 +289,12 @@ section h2 {
 .hero-content h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
-  color: var(--brown);
+  color: #fff;
+  -webkit-text-stroke: none;
+  text-shadow: 
+    0 0 15px rgba(255, 255, 255, 0.4),
+    0 0 30px rgba(255, 255, 255, 0.3),
+    0 2px 6px rgba(0, 0, 0, 0.4);
 }
 .hero-content p {
   font-size: 1.2rem;
@@ -330,7 +335,7 @@ section h2 {
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 2rem;
-  color: var(--brown);
+  color: #fff;
 }
 
 /* Grid layout for skills */
@@ -401,7 +406,7 @@ section h2 {
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 2rem;
-  color: var(--brown);
+  color: #fff;
 }
 
 /* ------------------------------ */
