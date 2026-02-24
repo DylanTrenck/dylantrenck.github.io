@@ -338,24 +338,26 @@ section h2 {
 /* Skills Section Styles          */
 /* ------------------------------ */
 #skills {
-  padding: 4rem 0;
+  padding: 5rem 0;
   background: transparent;
   z-index: 2;
-  min-height: 700px;
+  min-height: 750px;
 }
 #skills h2 {
   text-align: center;
   font-size: 2.5rem;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
   color: #fff;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  font-weight: 700;
 }
 
 /* Constellation Container */
 .constellation-container {
   position: relative;
   width: 100%;
-  max-width: 1000px;
-  height: 700px;
+  max-width: 1200px;
+  height: 750px;
   margin: 0 auto;
   overflow: visible;
 }
@@ -369,18 +371,23 @@ section h2 {
   height: 100%;
   pointer-events: none;
   z-index: 1;
+  opacity: 0.4;
+  transition: opacity 0.4s ease;
 }
 
 .constellation-line {
   stroke: var(--olive);
-  stroke-width: 2;
-  stroke-opacity: 0.3;
-  transition: stroke-opacity 0.3s ease;
+  stroke-width: 1.5;
+  stroke-opacity: 0.25;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 0 2px rgba(168, 187, 163, 0.3));
 }
 
 .constellation-group:hover ~ .constellation-lines .constellation-line[data-constellation],
 .constellation-group:hover .constellation-lines .constellation-line[data-constellation] {
-  stroke-opacity: 0.6;
+  stroke-opacity: 0.7;
+  stroke-width: 2;
+  filter: drop-shadow(0 0 4px rgba(168, 187, 163, 0.6));
 }
 
 /* Star Elements */
@@ -389,41 +396,83 @@ section h2 {
   transform: translate(-50%, -50%);
   cursor: pointer;
   z-index: 10;
-  transition: transform 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .star:hover {
-  transform: translate(-50%, -50%) scale(1.3);
-  z-index: 20;
+  transform: translate(-50%, -50%) scale(1.4);
+  z-index: 30;
+}
+
+/* Underglow effect */
+.star::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(168, 187, 163, 0.4) 0%, rgba(168, 187, 163, 0) 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.star:hover::before {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.5);
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+.constellation-group:hover .star::before {
+  opacity: 0.3;
+  transform: translate(-50%, -50%) scale(1.2);
 }
 
 .star-glow {
   position: absolute;
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.2) 40%, rgba(255, 255, 255, 0) 70%);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  animation: twinkle 3s ease-in-out infinite;
+  animation: twinkle 4s ease-in-out infinite;
   pointer-events: none;
+  z-index: 1;
 }
 
 .star-core {
   position: absolute;
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background: var(--creme);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   box-shadow: 
-    0 0 10px rgba(255, 255, 255, 0.8),
-    0 0 20px rgba(255, 255, 255, 0.5),
-    0 0 30px rgba(255, 255, 255, 0.3);
+    0 0 8px rgba(255, 255, 255, 0.9),
+    0 0 16px rgba(255, 255, 255, 0.6),
+    0 0 24px rgba(255, 255, 255, 0.4),
+    0 0 32px rgba(255, 255, 255, 0.2);
   pointer-events: none;
+  z-index: 2;
+  transition: all 0.4s ease;
+}
+
+.star:hover .star-core {
+  width: 18px;
+  height: 18px;
+  box-shadow: 
+    0 0 12px rgba(255, 255, 255, 1),
+    0 0 24px rgba(255, 255, 255, 0.8),
+    0 0 36px rgba(255, 255, 255, 0.6),
+    0 0 48px rgba(255, 255, 255, 0.4);
 }
 
 .star-label {
@@ -432,32 +481,57 @@ section h2 {
   left: 50%;
   transform: translate(-50%, -50%);
   color: var(--creme);
-  font-size: 0.7rem;
-  font-weight: bold;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-shadow: 
+    0 0 8px rgba(255, 255, 255, 0.8),
+    0 0 16px rgba(255, 255, 255, 0.4),
+    0 2px 4px rgba(0, 0, 0, 0.3);
   pointer-events: none;
   white-space: nowrap;
-  margin-top: 35px;
+  margin-top: 45px;
+  letter-spacing: 0.5px;
+  transition: all 0.4s ease;
+}
+
+.star:hover .star-label {
+  font-size: 0.85rem;
+  text-shadow: 
+    0 0 12px rgba(255, 255, 255, 1),
+    0 0 24px rgba(255, 255, 255, 0.6),
+    0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
 .star-tooltip {
   position: absolute;
-  bottom: 100%;
+  bottom: calc(100% + 20px);
   left: 50%;
-  transform: translateX(-50%) translateY(-10px);
-  background: rgba(58, 47, 47, 0.95);
+  transform: translateX(-50%) translateY(10px);
+  background: linear-gradient(135deg, rgba(58, 47, 47, 0.98) 0%, rgba(45, 35, 35, 0.98) 100%);
   color: var(--creme);
-  padding: 0.8rem 1rem;
-  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
   border: 1px solid var(--olive);
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 100;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-  margin-bottom: 10px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(168, 187, 163, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  line-height: 1.6;
+}
+
+.star-tooltip strong {
+  color: var(--olive);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 1rem;
 }
 
 .star-tooltip::after {
@@ -466,8 +540,9 @@ section h2 {
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  border: 6px solid transparent;
-  border-top-color: rgba(58, 47, 47, 0.95);
+  border: 8px solid transparent;
+  border-top-color: rgba(58, 47, 47, 0.98);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 .star:hover .star-tooltip {
@@ -476,51 +551,77 @@ section h2 {
 }
 
 .star:hover .star-glow {
-  animation: twinkle 0.5s ease-in-out infinite;
-}
-
-.star:hover .star-core {
-  box-shadow: 
-    0 0 15px rgba(255, 255, 255, 1),
-    0 0 30px rgba(255, 255, 255, 0.8),
-    0 0 45px rgba(255, 255, 255, 0.5);
+  animation: twinkle 1s ease-in-out infinite;
+  width: 100px;
+  height: 100px;
 }
 
 /* Constellation Group Hover Effect */
+.constellation-group {
+  transition: all 0.4s ease;
+}
+
 .constellation-group:hover .star {
-  transform: translate(-50%, -50%) scale(1.1);
+  transform: translate(-50%, -50%) scale(1.15);
 }
 
-.constellation-group:hover .constellation-line {
-  stroke-opacity: 0.5;
+.constellation-group:hover .constellation-lines {
+  opacity: 0.6;
 }
 
-/* Twinkle Animation */
+/* Animations */
 @keyframes twinkle {
   0%, 100% {
-    opacity: 0.6;
+    opacity: 0.5;
     transform: translate(-50%, -50%) scale(1);
   }
   50% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(1.5);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1.8);
   }
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .constellation-container {
-    height: 600px;
+    height: 650px;
     max-width: 100%;
   }
   
+  #skills {
+    min-height: 650px;
+    padding: 3rem 0;
+  }
+  
   .star-label {
-    font-size: 0.6rem;
+    font-size: 0.65rem;
+    margin-top: 40px;
   }
   
   .star-tooltip {
     font-size: 0.75rem;
-    padding: 0.6rem 0.8rem;
+    padding: 0.75rem 1rem;
+  }
+  
+  .star-glow {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .star::before {
+    width: 80px;
+    height: 80px;
   }
 }
 

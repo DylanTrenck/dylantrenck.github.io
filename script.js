@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const stars = document.querySelectorAll('.star');
   const constellationLines = document.querySelectorAll('.constellation-line');
   const constellationGroups = document.querySelectorAll('.constellation-group');
+  const constellationLinesSVG = document.querySelector('.constellation-lines');
   
   // Highlight constellation lines when hovering over stars
   stars.forEach(star => {
@@ -11,18 +12,26 @@ document.addEventListener('DOMContentLoaded', () => {
       if (constellation) {
         constellationLines.forEach(line => {
           if (line.getAttribute('data-constellation') === constellation) {
-            line.style.strokeOpacity = '0.8';
-            line.style.strokeWidth = '3';
+            line.style.strokeOpacity = '0.9';
+            line.style.strokeWidth = '2.5';
+            line.style.filter = 'drop-shadow(0 0 6px rgba(168, 187, 163, 0.8))';
           }
         });
+        if (constellationLinesSVG) {
+          constellationLinesSVG.style.opacity = '0.7';
+        }
       }
     });
     
     star.addEventListener('mouseleave', () => {
       constellationLines.forEach(line => {
-        line.style.strokeOpacity = '0.3';
-        line.style.strokeWidth = '2';
+        line.style.strokeOpacity = '';
+        line.style.strokeWidth = '';
+        line.style.filter = '';
       });
+      if (constellationLinesSVG) {
+        constellationLinesSVG.style.opacity = '';
+      }
     });
   });
   
@@ -32,15 +41,25 @@ document.addEventListener('DOMContentLoaded', () => {
       const constellation = group.getAttribute('data-constellation');
       constellationLines.forEach(line => {
         if (line.getAttribute('data-constellation') === constellation) {
-          line.style.strokeOpacity = '0.6';
+          line.style.strokeOpacity = '0.7';
+          line.style.strokeWidth = '2';
+          line.style.filter = 'drop-shadow(0 0 4px rgba(168, 187, 163, 0.6))';
         }
       });
+      if (constellationLinesSVG) {
+        constellationLinesSVG.style.opacity = '0.6';
+      }
     });
     
     group.addEventListener('mouseleave', () => {
       constellationLines.forEach(line => {
-        line.style.strokeOpacity = '0.3';
+        line.style.strokeOpacity = '';
+        line.style.strokeWidth = '';
+        line.style.filter = '';
       });
+      if (constellationLinesSVG) {
+        constellationLinesSVG.style.opacity = '';
+      }
     });
   });
 });
