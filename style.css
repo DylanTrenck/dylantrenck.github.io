@@ -310,7 +310,7 @@ section h2 {
 .hero-content p {
   font-size: 1.2rem;
   margin-bottom: 2rem;
-  color: var(--brown);
+  color: var(--creme);
 }
 .hero-content h1,
 .hero-content p {
@@ -389,7 +389,7 @@ section h2 {
 .progress-circle span {
   position: relative;
   font-weight: bold;
-  color: var(--brown);
+  color: var(--olive-dark);
   text-align: center;
   font-size: 0.9rem;
   z-index: 2;
@@ -585,7 +585,7 @@ footer {
   top: 10px;
   right: 15px;
   font-size: 1.5rem;
-  color: var(--brown);
+  color: var(--olive-dark);
   cursor: pointer;
 }
 
