@@ -1,4 +1,4 @@
-// Constellation interactivity
+// Constellation interactivity + scroll reveal
 document.addEventListener('DOMContentLoaded', () => {
   const stars = document.querySelectorAll('.star');
   const constellationLines = document.querySelectorAll('.constellation-line');
@@ -62,6 +62,29 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // Scroll reveal for constellation groups / labels
+  if ('IntersectionObserver' in window && constellationGroups.length) {
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        root: null,
+        threshold: 0.3,
+      }
+    );
+
+    constellationGroups.forEach(group => observer.observe(group));
+  } else {
+    // Fallback: show all groups if IntersectionObserver is not supported
+    constellationGroups.forEach(group => group.classList.add('visible'));
+  }
 });
 
 // Floating Question Button functionality

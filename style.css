@@ -374,9 +374,15 @@ section h2 {
     0 0 10px rgba(168, 187, 163, 0.6),
     0 0 20px rgba(168, 187, 163, 0.3),
     0 2px 4px rgba(0, 0, 0, 0.5);
-  transform: translateX(-50%);
+  transform: translate(-50%, 10px);
   z-index: 5;
-  transition: all 0.4s ease;
+  opacity: 0;
+  transition: opacity 0.6s ease, transform 0.6s ease, color 0.4s ease, text-shadow 0.4s ease;
+}
+
+.constellation-group.visible .constellation-label {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 
 .constellation-group:hover .constellation-label {
@@ -385,7 +391,19 @@ section h2 {
     0 0 15px rgba(248, 240, 227, 0.8),
     0 0 30px rgba(248, 240, 227, 0.5),
     0 2px 6px rgba(0, 0, 0, 0.6);
-  transform: translateX(-50%) scale(1.1);
+  transform: translate(-50%, 0) scale(1.1);
+}
+
+/* Scroll reveal for constellation groups */
+.constellation-group {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.constellation-group.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Hide center connection stars */
