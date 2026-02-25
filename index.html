@@ -88,20 +88,19 @@
           <h2>My Skills</h2>
           <div class="constellation-container">
             <svg class="constellation-lines" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid meet">
-              <!-- Backend Constellation - Cassiopeia (W/M shape) -->
-              <!-- Connecting lines forming the W pattern (connecting Java->Python->C->COBOL->SQL) -->
-              <!-- Java (200, 240) to Python (300, 190) -->
-              <line x1="200" y1="240" x2="300" y2="190" class="constellation-line" data-constellation="backend"/>
-              <!-- Python (300, 190) to C (400, 240) -->
-              <line x1="300" y1="190" x2="400" y2="240" class="constellation-line" data-constellation="backend"/>
-              <!-- C (400, 240) to COBOL (350, 340) -->
-              <line x1="400" y1="240" x2="350" y2="340" class="constellation-line" data-constellation="backend"/>
-              <!-- COBOL (350, 340) to SQL (250, 390) -->
-              <line x1="350" y1="340" x2="250" y2="390" class="constellation-line" data-constellation="backend"/>
-              
-              <!-- Frontend Constellation - Binary Star (Castor and Pollux from Gemini) -->
-              <!-- Single line connecting the two stars -->
-              <line x1="600" y1="300" x2="700" y2="300" class="constellation-line" data-constellation="frontend"/>
+              <!-- Languages Constellation - Orion-inspired pattern (7 stars) -->
+              <!-- Main belt: Java->Python->C -->
+              <line x1="200" y1="280" x2="300" y2="240" class="constellation-line" data-constellation="languages"/>
+              <line x1="300" y1="240" x2="400" y2="280" class="constellation-line" data-constellation="languages"/>
+              <!-- Top stars: HTML/CSS->JavaScript -->
+              <line x1="250" y1="200" x2="350" y2="200" class="constellation-line" data-constellation="languages"/>
+              <!-- Bottom stars: COBOL->SQL -->
+              <line x1="300" y1="320" x2="200" y2="360" class="constellation-line" data-constellation="languages"/>
+              <!-- Cross connections -->
+              <line x1="250" y1="200" x2="200" y2="280" class="constellation-line" data-constellation="languages"/>
+              <line x1="350" y1="200" x2="400" y2="280" class="constellation-line" data-constellation="languages"/>
+              <line x1="300" y1="240" x2="300" y2="320" class="constellation-line" data-constellation="languages"/>
+              <line x1="400" y1="280" x2="300" y2="320" class="constellation-line" data-constellation="languages"/>
               
               <!-- Tools Constellation - Lyra (Harp shape) -->
               <!-- Connecting lines forming the harp pattern -->
@@ -112,13 +111,38 @@
               <line x1="900" y1="400" x2="900" y2="250" class="constellation-line" data-constellation="tools"/>
             </svg>
             
-            <!-- Backend Constellation Group -->
-            <div class="constellation-group" data-constellation="backend">
-              <div class="constellation-label" style="left: 16.7%; top: 15%;">Backend</div>
+            <!-- Languages Constellation Group (Backend + Frontend combined) -->
+            <div class="constellation-group" data-constellation="languages">
+              <div class="constellation-label" style="left: 25%; top: 12%;">Languages</div>
               
-              <!-- Cassiopeia W pattern: 5 stars positioned to form W/M shape -->
-              <!-- Star 1: Top-left of W -->
-              <div class="star" data-skill="Java" style="left: 16.7%; top: 30%;" data-level="90" data-years="4" data-projects="8">
+              <!-- Orion-inspired pattern: 7 stars -->
+              <!-- Top row: HTML/CSS, JavaScript -->
+              <div class="star" data-skill="HTML/CSS" style="left: 20.8%; top: 25%;" data-level="90" data-years="4" data-projects="15">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+                <div class="star-label">HTML/CSS</div>
+                <div class="star-tooltip">
+                  <strong>HTML/CSS</strong><br>
+                  Level: Expert (90%)<br>
+                  Experience: 4 years<br>
+                  Projects: 15+
+                </div>
+              </div>
+              
+              <div class="star" data-skill="JavaScript" style="left: 29.2%; top: 25%;" data-level="80" data-years="3" data-projects="10">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+                <div class="star-label">JavaScript</div>
+                <div class="star-tooltip">
+                  <strong>JavaScript</strong><br>
+                  Level: Advanced (80%)<br>
+                  Experience: 3 years<br>
+                  Projects: 10+
+                </div>
+              </div>
+              
+              <!-- Middle belt: Java, Python, C -->
+              <div class="star" data-skill="Java" style="left: 16.7%; top: 35%;" data-level="90" data-years="4" data-projects="8">
                 <div class="star-glow"></div>
                 <div class="star-core"></div>
                 <div class="star-label">Java</div>
@@ -130,8 +154,7 @@
                 </div>
               </div>
               
-              <!-- Star 2: Top-center of W -->
-              <div class="star" data-skill="Python" style="left: 25%; top: 23.75%;" data-level="85" data-years="3" data-projects="12">
+              <div class="star" data-skill="Python" style="left: 25%; top: 30%;" data-level="85" data-years="3" data-projects="12">
                 <div class="star-glow"></div>
                 <div class="star-core"></div>
                 <div class="star-label">Python</div>
@@ -143,8 +166,7 @@
                 </div>
               </div>
               
-              <!-- Star 3: Center of W -->
-              <div class="star" data-skill="C" style="left: 33.3%; top: 30%;" data-level="85" data-years="3" data-projects="6">
+              <div class="star" data-skill="C" style="left: 33.3%; top: 35%;" data-level="85" data-years="3" data-projects="6">
                 <div class="star-glow"></div>
                 <div class="star-core"></div>
                 <div class="star-label">C</div>
@@ -156,8 +178,8 @@
                 </div>
               </div>
               
-              <!-- Star 4: Bottom-center of W -->
-              <div class="star" data-skill="COBOL" style="left: 29.2%; top: 42.5%;" data-level="75" data-years="2" data-projects="3">
+              <!-- Bottom row: COBOL, SQL -->
+              <div class="star" data-skill="COBOL" style="left: 25%; top: 40%;" data-level="75" data-years="2" data-projects="3">
                 <div class="star-glow"></div>
                 <div class="star-core"></div>
                 <div class="star-label">COBOL</div>
@@ -169,8 +191,7 @@
                 </div>
               </div>
               
-              <!-- Star 5: Bottom-right of W -->
-              <div class="star" data-skill="SQL" style="left: 20.8%; top: 48.75%;" data-level="75" data-years="3" data-projects="7">
+              <div class="star" data-skill="SQL" style="left: 16.7%; top: 45%;" data-level="75" data-years="3" data-projects="7">
                 <div class="star-glow"></div>
                 <div class="star-core"></div>
                 <div class="star-label">SQL</div>
@@ -183,41 +204,9 @@
               </div>
             </div>
             
-            <!-- Frontend Constellation Group -->
-            <div class="constellation-group" data-constellation="frontend">
-              <div class="constellation-label" style="left: 50%; top: 15%;">Frontend</div>
-              
-              <!-- Binary star pattern: 2 stars connected -->
-              <!-- Star 1: Castor (left) -->
-              <div class="star" data-skill="HTML/CSS" style="left: 50%; top: 37.5%;" data-level="90" data-years="4" data-projects="15">
-                <div class="star-glow"></div>
-                <div class="star-core"></div>
-                <div class="star-label">HTML/CSS</div>
-                <div class="star-tooltip">
-                  <strong>HTML/CSS</strong><br>
-                  Level: Expert (90%)<br>
-                  Experience: 4 years<br>
-                  Projects: 15+
-                </div>
-              </div>
-              
-              <!-- Star 2: Pollux (right) -->
-              <div class="star" data-skill="JavaScript" style="left: 58.3%; top: 37.5%;" data-level="80" data-years="3" data-projects="10">
-                <div class="star-glow"></div>
-                <div class="star-core"></div>
-                <div class="star-label">JavaScript</div>
-                <div class="star-tooltip">
-                  <strong>JavaScript</strong><br>
-                  Level: Advanced (80%)<br>
-                  Experience: 3 years<br>
-                  Projects: 10+
-                </div>
-              </div>
-            </div>
-            
             <!-- Tools Constellation Group -->
             <div class="constellation-group" data-constellation="tools">
-              <div class="constellation-label" style="left: 83.3%; top: 15%;">Tools</div>
+              <div class="constellation-label" style="left: 83.3%; top: 12%;">Tools</div>
               
               <!-- Lyra harp pattern: 5 stars positioned to form harp shape -->
               <!-- Star 1: Top-left of harp -->
