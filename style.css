@@ -398,9 +398,10 @@ section h2 {
 
 /* Scroll reveal for constellation groups */
 .constellation-group {
+  position: relative;
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition: all 0.6s ease, opacity 0.6s ease, transform 0.6s ease;
 }
 
 .constellation-group.visible {
@@ -615,10 +616,7 @@ section h2 {
   height: 100px;
 }
 
-/* Constellation Group Hover Effect */
-.constellation-group {
-  transition: all 0.4s ease;
-}
+/* Constellation Group Hover Effect - properties merged above */
 
 .constellation-group:hover .star {
   transform: translate(-50%, -50%) scale(1.15);
