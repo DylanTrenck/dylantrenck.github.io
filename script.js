@@ -70,6 +70,16 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
+            // Fade in corresponding constellation lines
+            const constellation = entry.target.getAttribute('data-constellation');
+            const delay = constellation === 'languages' ? 0 : 300; // Match staggered animation
+            setTimeout(() => {
+              constellationLines.forEach(line => {
+                if (line.getAttribute('data-constellation') === constellation) {
+                  line.style.strokeOpacity = '0.7';
+                }
+              });
+            }, delay);
             observer.unobserve(entry.target);
           }
         });
@@ -83,7 +93,15 @@ document.addEventListener('DOMContentLoaded', () => {
     constellationGroups.forEach(group => observer.observe(group));
   } else {
     // Fallback: show all groups if IntersectionObserver is not supported
-    constellationGroups.forEach(group => group.classList.add('visible'));
+    constellationGroups.forEach(group => {
+      group.classList.add('visible');
+      const constellation = group.getAttribute('data-constellation');
+      constellationLines.forEach(line => {
+        if (line.getAttribute('data-constellation') === constellation) {
+          line.style.strokeOpacity = '0.7';
+        }
+      });
+    });
   }
 });
 
