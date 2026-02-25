@@ -132,7 +132,7 @@ section h2 {
     transform: rotate(0deg) translateX(550px) rotate(0deg);
   }
   100% { 
-    transform: rotate(360deg) translateX(550px) rotate(-360deg);
+    transform: rotate(360deg) translateX(550px) rotate(-350deg);
   }
 }
 
@@ -212,7 +212,7 @@ section h2 {
   width: 150px;
   height: auto;
   transform-origin: center center;
-  animation: moonOrbitAndRotate 27s linear infinite;
+  animation: moonOrbitAndRotate 54s linear infinite;
 }
 
 /* ------------------------------ */
