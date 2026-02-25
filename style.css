@@ -129,10 +129,10 @@ section h2 {
 
 @keyframes moonOrbitAndRotate {
   0% { 
-    transform: rotate(0deg) translateX(300px) rotate(0deg);
+    transform: rotate(0deg) translateX(550px) rotate(0deg);
   }
   100% { 
-    transform: rotate(360deg) translateX(300px) rotate(-360deg);
+    transform: rotate(360deg) translateX(550px) rotate(-360deg);
   }
 }
 
@@ -207,11 +207,11 @@ section h2 {
 }
 
 .planet.moon {
-  top: 1975px;
-  left: 430px;
+  top: 1900px;
+  left: 355px;
   width: 150px;
   height: auto;
-  transform-origin: -425px -425px;
+  transform-origin: center center;
   animation: moonOrbitAndRotate 27s linear infinite;
 }
 
