@@ -88,25 +88,22 @@
           <h2>My Skills</h2>
           <div class="constellation-container">
             <svg class="constellation-lines" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid meet">
-              <!-- Languages Constellation - Network pattern with Python as central hub -->
-              <!-- Python (center at 300, 300) to all other languages -->
-              <!-- Python to HTML/CSS (200, 200) -->
-              <line x1="300" y1="300" x2="200" y2="200" class="constellation-line" data-constellation="languages"/>
-              <!-- Python to JavaScript (400, 200) -->
-              <line x1="300" y1="300" x2="400" y2="200" class="constellation-line" data-constellation="languages"/>
-              <!-- Python to Java (150, 350) -->
-              <line x1="300" y1="300" x2="150" y2="350" class="constellation-line" data-constellation="languages"/>
-              <!-- Python to C (450, 350) -->
-              <line x1="300" y1="300" x2="450" y2="350" class="constellation-line" data-constellation="languages"/>
-              <!-- Python to SQL (250, 450) -->
-              <line x1="300" y1="300" x2="250" y2="450" class="constellation-line" data-constellation="languages"/>
-              <!-- Python to COBOL (350, 450) -->
-              <line x1="300" y1="300" x2="350" y2="450" class="constellation-line" data-constellation="languages"/>
-              <!-- Additional connections for visual interest -->
-              <line x1="200" y1="200" x2="150" y2="350" class="constellation-line" data-constellation="languages"/>
-              <line x1="400" y1="200" x2="450" y2="350" class="constellation-line" data-constellation="languages"/>
-              <line x1="200" y1="200" x2="250" y2="450" class="constellation-line" data-constellation="languages"/>
-              <line x1="150" y1="350" x2="250" y2="450" class="constellation-line" data-constellation="languages"/>
+              <!-- Languages Constellation - Orion pattern -->
+              <!-- Shoulders: HTML/CSS (Betelgeuse) to JavaScript (Bellatrix) -->
+              <line x1="200" y1="200" x2="400" y2="200" class="constellation-line" data-constellation="languages"/>
+              <!-- Left shoulder to left belt -->
+              <line x1="200" y1="200" x2="250" y2="300" class="constellation-line" data-constellation="languages"/>
+              <!-- Right shoulder to right belt -->
+              <line x1="400" y1="200" x2="350" y2="300" class="constellation-line" data-constellation="languages"/>
+              <!-- Orion's Belt: Java -> Python -> C -->
+              <line x1="250" y1="300" x2="300" y2="300" class="constellation-line" data-constellation="languages"/>
+              <line x1="300" y1="300" x2="350" y2="300" class="constellation-line" data-constellation="languages"/>
+              <!-- Left belt to left foot (SQL) -->
+              <line x1="250" y1="300" x2="200" y2="450" class="constellation-line" data-constellation="languages"/>
+              <!-- Right belt to right foot (COBOL) -->
+              <line x1="350" y1="300" x2="400" y2="450" class="constellation-line" data-constellation="languages"/>
+              <!-- Left foot to right foot (base) -->
+              <line x1="200" y1="450" x2="400" y2="450" class="constellation-line" data-constellation="languages"/>
               
               <!-- Tools Constellation - Lyra (Harp shape) -->
               <!-- Connecting lines forming the harp pattern -->
@@ -121,8 +118,8 @@
             <div class="constellation-group" data-constellation="languages">
               <div class="constellation-label" style="left: 25%; top: 12%;">Languages</div>
               
-              <!-- Network pattern: Python as central hub, 7 stars -->
-              <!-- Top-left: HTML/CSS -->
+              <!-- Orion pattern: 7 stars -->
+              <!-- Top-left shoulder: HTML/CSS (Betelgeuse) -->
               <div class="star" data-skill="HTML/CSS" style="left: 16.7%; top: 25%;" data-level="90" data-years="4" data-projects="15">
                 <div class="star-glow"></div>
                 <div class="star-core"></div>
@@ -135,7 +132,7 @@
                 </div>
               </div>
               
-              <!-- Top-right: JavaScript -->
+              <!-- Top-right shoulder: JavaScript (Bellatrix) -->
               <div class="star" data-skill="JavaScript" style="left: 33.3%; top: 25%;" data-level="80" data-years="3" data-projects="10">
                 <div class="star-glow"></div>
                 <div class="star-core"></div>
@@ -148,7 +145,20 @@
                 </div>
               </div>
               
-              <!-- Center: Python (hub) -->
+              <!-- Left belt: Java -->
+              <div class="star" data-skill="Java" style="left: 20.8%; top: 37.5%;" data-level="90" data-years="4" data-projects="8">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+                <div class="star-label">Java</div>
+                <div class="star-tooltip">
+                  <strong>Java</strong><br>
+                  Level: Expert (90%)<br>
+                  Experience: 4 years<br>
+                  Projects: 8+
+                </div>
+              </div>
+              
+              <!-- Center belt: Python -->
               <div class="star" data-skill="Python" style="left: 25%; top: 37.5%;" data-level="85" data-years="3" data-projects="12">
                 <div class="star-glow"></div>
                 <div class="star-core"></div>
@@ -161,21 +171,8 @@
                 </div>
               </div>
               
-              <!-- Left: Java -->
-              <div class="star" data-skill="Java" style="left: 12.5%; top: 43.75%;" data-level="90" data-years="4" data-projects="8">
-                <div class="star-glow"></div>
-                <div class="star-core"></div>
-                <div class="star-label">Java</div>
-                <div class="star-tooltip">
-                  <strong>Java</strong><br>
-                  Level: Expert (90%)<br>
-                  Experience: 4 years<br>
-                  Projects: 8+
-                </div>
-              </div>
-              
-              <!-- Right: C -->
-              <div class="star" data-skill="C" style="left: 37.5%; top: 43.75%;" data-level="85" data-years="3" data-projects="6">
+              <!-- Right belt: C -->
+              <div class="star" data-skill="C" style="left: 29.2%; top: 37.5%;" data-level="85" data-years="3" data-projects="6">
                 <div class="star-glow"></div>
                 <div class="star-core"></div>
                 <div class="star-label">C</div>
@@ -187,8 +184,8 @@
                 </div>
               </div>
               
-              <!-- Bottom-left: SQL -->
-              <div class="star" data-skill="SQL" style="left: 20.8%; top: 56.25%;" data-level="75" data-years="3" data-projects="7">
+              <!-- Left foot: SQL (Saiph) -->
+              <div class="star" data-skill="SQL" style="left: 16.7%; top: 56.25%;" data-level="75" data-years="3" data-projects="7">
                 <div class="star-glow"></div>
                 <div class="star-core"></div>
                 <div class="star-label">SQL</div>
@@ -200,8 +197,8 @@
                 </div>
               </div>
               
-              <!-- Bottom-right: COBOL -->
-              <div class="star" data-skill="COBOL" style="left: 29.2%; top: 56.25%;" data-level="75" data-years="2" data-projects="3">
+              <!-- Right foot: COBOL (Rigel) -->
+              <div class="star" data-skill="COBOL" style="left: 33.3%; top: 56.25%;" data-level="75" data-years="2" data-projects="3">
                 <div class="star-glow"></div>
                 <div class="star-core"></div>
                 <div class="star-label">COBOL</div>
