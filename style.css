@@ -398,10 +398,19 @@ section h2 {
 
 /* Scroll reveal for constellation groups */
 .constellation-group {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   opacity: 0;
   transform: translateY(30px);
   transition: all 0.6s ease, opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none;
+}
+
+.constellation-group .star {
+  pointer-events: auto;
 }
 
 .constellation-group.visible {
