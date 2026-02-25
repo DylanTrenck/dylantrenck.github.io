@@ -86,7 +86,202 @@
       <section id="skills">
         <div class="container">
           <h2>My Skills</h2>
-          <!-- Skills content will be added here -->
+          <div class="constellation-container">
+            <svg class="constellation-lines" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid meet">
+              <!-- Backend Constellation - Cassiopeia (W/M shape) -->
+              <!-- Connecting lines forming the W pattern (connecting Java->Python->C->COBOL->SQL) -->
+              <line x1="200" y1="200" x2="300" y2="150" class="constellation-line" data-constellation="backend"/>
+              <line x1="300" y1="150" x2="400" y2="200" class="constellation-line" data-constellation="backend"/>
+              <line x1="400" y1="200" x2="350" y2="300" class="constellation-line" data-constellation="backend"/>
+              <line x1="350" y1="300" x2="250" y2="350" class="constellation-line" data-constellation="backend"/>
+              
+              <!-- Frontend Constellation - Binary Star (Castor and Pollux from Gemini) -->
+              <!-- Single line connecting the two stars -->
+              <line x1="600" y1="300" x2="700" y2="300" class="constellation-line" data-constellation="frontend"/>
+              
+              <!-- Tools Constellation - Lyra (Harp shape) -->
+              <!-- Connecting lines forming the harp pattern -->
+              <line x1="900" y1="250" x2="1000" y2="200" class="constellation-line" data-constellation="tools"/>
+              <line x1="1000" y1="200" x2="1050" y2="280" class="constellation-line" data-constellation="tools"/>
+              <line x1="1050" y1="280" x2="1000" y2="350" class="constellation-line" data-constellation="tools"/>
+              <line x1="1000" y1="350" x2="900" y2="400" class="constellation-line" data-constellation="tools"/>
+              <line x1="900" y1="400" x2="900" y2="250" class="constellation-line" data-constellation="tools"/>
+            </svg>
+            
+            <!-- Backend Constellation Group -->
+            <div class="constellation-group" data-constellation="backend">
+              <div class="constellation-label" style="left: 16.7%; top: 15%;">Backend</div>
+              
+              <!-- Cassiopeia W pattern: 5 stars positioned to form W/M shape -->
+              <!-- Star 1: Top-left of W -->
+              <div class="star" data-skill="Java" style="left: 16.7%; top: 25%;" data-level="90" data-years="4" data-projects="8">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+                <div class="star-label">Java</div>
+                <div class="star-tooltip">
+                  <strong>Java</strong><br>
+                  Level: Expert (90%)<br>
+                  Experience: 4 years<br>
+                  Projects: 8+
+                </div>
+              </div>
+              
+              <!-- Star 2: Top-center of W -->
+              <div class="star" data-skill="Python" style="left: 25%; top: 18.75%;" data-level="85" data-years="3" data-projects="12">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+                <div class="star-label">Python</div>
+                <div class="star-tooltip">
+                  <strong>Python</strong><br>
+                  Level: Advanced (85%)<br>
+                  Experience: 3 years<br>
+                  Projects: 12+
+                </div>
+              </div>
+              
+              <!-- Star 3: Center of W -->
+              <div class="star" data-skill="C" style="left: 33.3%; top: 25%;" data-level="85" data-years="3" data-projects="6">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+                <div class="star-label">C</div>
+                <div class="star-tooltip">
+                  <strong>C</strong><br>
+                  Level: Advanced (85%)<br>
+                  Experience: 3 years<br>
+                  Projects: 6+
+                </div>
+              </div>
+              
+              <!-- Star 4: Bottom-center of W -->
+              <div class="star" data-skill="COBOL" style="left: 29.2%; top: 37.5%;" data-level="75" data-years="2" data-projects="3">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+                <div class="star-label">COBOL</div>
+                <div class="star-tooltip">
+                  <strong>COBOL</strong><br>
+                  Level: Proficient (75%)<br>
+                  Experience: 2 years<br>
+                  Projects: 3+
+                </div>
+              </div>
+              
+              <!-- Star 5: Bottom-right of W -->
+              <div class="star" data-skill="SQL" style="left: 20.8%; top: 43.75%;" data-level="75" data-years="3" data-projects="7">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+                <div class="star-label">SQL</div>
+                <div class="star-tooltip">
+                  <strong>SQL</strong><br>
+                  Level: Proficient (75%)<br>
+                  Experience: 3 years<br>
+                  Projects: 7+
+                </div>
+              </div>
+            </div>
+            
+            <!-- Frontend Constellation Group -->
+            <div class="constellation-group" data-constellation="frontend">
+              <div class="constellation-label" style="left: 50%; top: 15%;">Frontend</div>
+              
+              <!-- Binary star pattern: 2 stars connected -->
+              <!-- Star 1: Castor (left) -->
+              <div class="star" data-skill="HTML/CSS" style="left: 50%; top: 37.5%;" data-level="90" data-years="4" data-projects="15">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+                <div class="star-label">HTML/CSS</div>
+                <div class="star-tooltip">
+                  <strong>HTML/CSS</strong><br>
+                  Level: Expert (90%)<br>
+                  Experience: 4 years<br>
+                  Projects: 15+
+                </div>
+              </div>
+              
+              <!-- Star 2: Pollux (right) -->
+              <div class="star" data-skill="JavaScript" style="left: 58.3%; top: 37.5%;" data-level="80" data-years="3" data-projects="10">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+                <div class="star-label">JavaScript</div>
+                <div class="star-tooltip">
+                  <strong>JavaScript</strong><br>
+                  Level: Advanced (80%)<br>
+                  Experience: 3 years<br>
+                  Projects: 10+
+                </div>
+              </div>
+            </div>
+            
+            <!-- Tools Constellation Group -->
+            <div class="constellation-group" data-constellation="tools">
+              <div class="constellation-label" style="left: 83.3%; top: 15%;">Tools</div>
+              
+              <!-- Lyra harp pattern: 5 stars positioned to form harp shape -->
+              <!-- Star 1: Top-left of harp -->
+              <div class="star" data-skill="OpenCV" style="left: 75%; top: 31.25%;" data-level="80" data-years="2" data-projects="5">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+                <div class="star-label">OpenCV</div>
+                <div class="star-tooltip">
+                  <strong>OpenCV</strong><br>
+                  Level: Advanced (80%)<br>
+                  Experience: 2 years<br>
+                  Projects: 5+
+                </div>
+              </div>
+              
+              <!-- Star 2: Top-center of harp -->
+              <div class="star" data-skill="TensorFlow" style="left: 83.3%; top: 25%;" data-level="75" data-years="2" data-projects="4">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+                <div class="star-label">TensorFlow</div>
+                <div class="star-tooltip">
+                  <strong>TensorFlow</strong><br>
+                  Level: Proficient (75%)<br>
+                  Experience: 2 years<br>
+                  Projects: 4+
+                </div>
+              </div>
+              
+              <!-- Star 3: Right-center of harp -->
+              <div class="star" data-skill="RAG" style="left: 87.5%; top: 35%;" data-level="70" data-years="1" data-projects="2">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+                <div class="star-label">RAG</div>
+                <div class="star-tooltip">
+                  <strong>RAG</strong><br>
+                  Level: Intermediate (70%)<br>
+                  Experience: 1 year<br>
+                  Projects: 2+
+                </div>
+              </div>
+              
+              <!-- Star 4: Bottom-right of harp -->
+              <div class="star" data-skill="PyTorch" style="left: 83.3%; top: 43.75%;" data-level="70" data-years="1" data-projects="3">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+                <div class="star-label">PyTorch</div>
+                <div class="star-tooltip">
+                  <strong>PyTorch</strong><br>
+                  Level: Intermediate (70%)<br>
+                  Experience: 1 year<br>
+                  Projects: 3+
+                </div>
+              </div>
+              
+              <!-- Star 5: Bottom-left of harp -->
+              <div class="star" data-skill="scikit-learn" style="left: 75%; top: 50%;" data-level="75" data-years="2" data-projects="6">
+                <div class="star-glow"></div>
+                <div class="star-core"></div>
+                <div class="star-label">scikit-learn</div>
+                <div class="star-tooltip">
+                  <strong>scikit-learn</strong><br>
+                  Level: Proficient (75%)<br>
+                  Experience: 2 years<br>
+                  Projects: 6+
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
