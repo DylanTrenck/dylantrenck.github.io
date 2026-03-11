@@ -613,28 +613,24 @@ section h2 {
 
 .star-tooltip {
   position: absolute;
-  top: 50%;
-  left: 120%;
-  transform: translateY(-50%) translateX(10px);
-  background: radial-gradient(circle at 0% 50%, rgba(248, 240, 227, 0.2), transparent 65%),
-              linear-gradient(135deg, rgba(32, 24, 24, 0.98) 0%, rgba(20, 14, 14, 0.98) 100%);
+  bottom: calc(100% + 16px);
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  background: linear-gradient(135deg, rgba(32, 24, 24, 0.98) 0%, rgba(20, 14, 14, 0.98) 100%);
   color: var(--creme);
   padding: 0.85rem 1.1rem;
-  border-radius: 14px;
+  border-radius: 12px;
   border: 1px solid rgba(168, 187, 163, 0.85);
   font-size: 0.85rem;
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-              box-shadow 0.35s ease, border-color 0.35s ease;
+  transition: opacity 0.25s ease-out, transform 0.25s ease-out;
   z-index: 100;
   box-shadow: 
-    0 10px 32px rgba(0, 0, 0, 0.75),
-    0 0 25px rgba(168, 187, 163, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
+    0 8px 28px rgba(0, 0, 0, 0.75),
+    0 0 20px rgba(168, 187, 163, 0.4);
+  backdrop-filter: blur(10px);
   line-height: 1.5;
 }
 
@@ -650,62 +646,21 @@ section h2 {
     0 0 18px rgba(248, 240, 227, 0.5);
 }
 
-/* Arm / connector from star to panel (left-to-right by default) */
-.star-tooltip::before {
-  content: '';
-  position: absolute;
-  right: 100%;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 40px;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(248, 240, 227, 0.1), rgba(248, 240, 227, 0.9));
-  box-shadow: 0 0 6px rgba(248, 240, 227, 0.8);
-}
-
-/* Tiny node at the end of the arm to feel more "HUD"-like */
 .star-tooltip::after {
   content: '';
   position: absolute;
-  right: calc(100% - 2px);
-  top: 50%;
-  transform: translate(50%, -50%);
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--creme);
-  box-shadow:
-    0 0 6px rgba(248, 240, 227, 0.9),
-    0 0 14px rgba(248, 240, 227, 0.7);
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px;
+  border-style: solid;
+  border-color: rgba(32, 24, 24, 0.98) transparent transparent transparent;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
 }
 
 .star:hover .star-tooltip {
   opacity: 1;
-  transform: translateY(-50%) translateX(0);
-  pointer-events: auto;
-}
-
-/* Flip the panel for the right-side constellation so it points inward */
-.constellation-group[data-constellation="tools"] .star-tooltip {
-  left: auto;
-  right: 120%;
-  transform: translateY(-50%) translateX(-10px);
-}
-
-.constellation-group[data-constellation="tools"] .star:hover .star-tooltip {
-  transform: translateY(-50%) translateX(0);
-}
-
-.constellation-group[data-constellation="tools"] .star-tooltip::before {
-  right: auto;
-  left: 100%;
-  background: linear-gradient(270deg, rgba(248, 240, 227, 0.1), rgba(248, 240, 227, 0.9));
-}
-
-.constellation-group[data-constellation="tools"] .star-tooltip::after {
-  right: auto;
-  left: calc(100% - 2px);
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%) translateY(0);
 }
 
 .star:hover .star-glow {
