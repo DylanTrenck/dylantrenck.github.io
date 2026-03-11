@@ -603,8 +603,9 @@ section h2 {
     0 0 16px rgba(255, 255, 255, 0.4),
     0 2px 4px rgba(0, 0, 0, 0.3);
   pointer-events: none;
-  transition: all 0.4s ease;
+  transition: all 0.35s ease;
   letter-spacing: 0.5px;
+  opacity: 0; /* hide language label until hover */
 }
 
 .star:hover .star-label {
@@ -613,6 +614,7 @@ section h2 {
     0 0 12px rgba(255, 255, 255, 1),
     0 0 24px rgba(255, 255, 255, 0.6),
     0 2px 6px rgba(0, 0, 0, 0.4);
+  opacity: 1;
 }
 
 .star-tooltip {
@@ -629,6 +631,7 @@ section h2 {
   font-size: 0.85rem;
   white-space: nowrap;
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
   transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
               transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
@@ -686,6 +689,7 @@ section h2 {
 .star:hover .star-tooltip {
   opacity: 1;
   transform: translateY(-50%) translateX(0);
+  visibility: visible;
 }
 
 /* Flip the panel for the right-side constellation so it points inward */
