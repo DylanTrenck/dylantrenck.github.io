@@ -432,7 +432,6 @@ section h2 {
   opacity: 0;
   transform: translateY(30px);
   transition: all 0.6s ease, opacity 0.6s ease, transform 0.6s ease;
-  pointer-events: none;
 }
 
 /* Staggered entrance animations */
