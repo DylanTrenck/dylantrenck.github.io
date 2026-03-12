@@ -610,42 +610,67 @@ section h2 {
   /* no-op; labels are hidden, tooltip handles language display */
 }
 
+/* Legacy per-star tooltip markup is present in HTML but hidden.
+   We now use a single shared tooltip panel driven by JS. */
 .star-tooltip {
+  display: none !important;
+}
+
+.star:hover .star-glow {
+  animation: twinkle 1s ease-in-out infinite;
+  width: 100px;
+  height: 100px;
+}
+
+/* Shared skill tooltip panel (appears near hovered star) */
+.skill-tooltip {
   position: absolute;
-  bottom: calc(100% + 16px);
-  left: 50%;
-  transform: translateX(-50%) translateY(8px);
+  min-width: 220px;
+  max-width: 260px;
+  padding: 0.9rem 1.1rem;
   background: linear-gradient(135deg, rgba(32, 24, 24, 0.98) 0%, rgba(20, 14, 14, 0.98) 100%);
+  border-radius: 14px;
+  border: 1px solid rgba(168, 187, 163, 0.9);
   color: var(--creme);
-  padding: 0.85rem 1.1rem;
-  border-radius: 12px;
-  border: 1px solid rgba(168, 187, 163, 0.85);
   font-size: 0.85rem;
-  white-space: nowrap;
-  opacity: 0;
+  box-shadow:
+    0 10px 34px rgba(0, 0, 0, 0.85),
+    0 0 26px rgba(168, 187, 163, 0.5);
+  backdrop-filter: blur(12px);
   pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -10px);
   transition: opacity 0.25s ease-out, transform 0.25s ease-out;
-  z-index: 100;
-  box-shadow: 
-    0 8px 28px rgba(0, 0, 0, 0.75),
-    0 0 20px rgba(168, 187, 163, 0.4);
-  backdrop-filter: blur(10px);
-  line-height: 1.5;
+  z-index: 50;
+  line-height: 1.6;
 }
 
-.star-tooltip strong {
-  color: var(--creme);
+.skill-tooltip.visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.skill-tooltip__title {
   font-weight: 700;
-  display: block;
-  margin-bottom: 0.1rem;
-  font-size: 0.95rem;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.3rem;
+  text-transform: uppercase;
+  font-size: 0.9rem;
   text-shadow:
-    0 0 8px rgba(248, 240, 227, 0.8),
-    0 0 18px rgba(248, 240, 227, 0.5);
+    0 0 10px rgba(248, 240, 227, 0.9),
+    0 0 24px rgba(248, 240, 227, 0.6);
 }
 
-.star-tooltip::after {
+.skill-tooltip__meta {
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+.skill-tooltip__meta span {
+  display: block;
+}
+
+.skill-tooltip::after {
   content: '';
   position: absolute;
   top: 100%;
@@ -655,17 +680,6 @@ section h2 {
   border-style: solid;
   border-color: rgba(32, 24, 24, 0.98) transparent transparent transparent;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
-}
-
-.star:hover .star-tooltip {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-.star:hover .star-glow {
-  animation: twinkle 1s ease-in-out infinite;
-  width: 100px;
-  height: 100px;
 }
 
 /* Constellation Group Hover Effect - properties merged above */

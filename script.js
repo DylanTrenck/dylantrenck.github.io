@@ -4,9 +4,51 @@ document.addEventListener('DOMContentLoaded', () => {
   const constellationLines = document.querySelectorAll('.constellation-line');
   const constellationGroups = document.querySelectorAll('.constellation-group');
   const constellationLinesSVG = document.querySelector('.constellation-lines');
+  const skillTooltip = document.getElementById('skill-tooltip');
+  const skillTooltipTitle = skillTooltip?.querySelector('.skill-tooltip__title');
+  const skillTooltipMeta = skillTooltip?.querySelector('.skill-tooltip__meta');
+  const constellationContainer = document.querySelector('.constellation-container');
   
   // Highlight constellation lines when hovering over stars
   stars.forEach(star => {
+    // Shared tooltip hover behavior
+    star.addEventListener('mouseenter', (event) => {
+      if (!skillTooltip || !skillTooltipTitle || !skillTooltipMeta || !constellationContainer) return;
+
+      const target = event.currentTarget;
+      const skill = target.getAttribute('data-skill') || '';
+      const level = target.getAttribute('data-level') || '';
+      const years = target.getAttribute('data-years') || '';
+      const projects = target.getAttribute('data-projects') || '';
+
+      skillTooltipTitle.textContent = skill;
+
+      const metaLines = [];
+      if (level) metaLines.push(`Level: ${level}%`);
+      if (years) metaLines.push(`Experience: ${years} year${years === '1' ? '' : 's'}`);
+      if (projects) metaLines.push(`Projects: ${projects}+`);
+      skillTooltipMeta.innerHTML = metaLines.map(line => `<span>${line}</span>`).join('');
+
+      const starRect = target.getBoundingClientRect();
+      const containerRect = constellationContainer.getBoundingClientRect();
+      const centerX = starRect.left + starRect.width / 2;
+      const topY = starRect.top;
+
+      const relativeX = centerX - containerRect.left;
+      const relativeY = topY - containerRect.top - 20; // sit just above the star
+
+      skillTooltip.style.left = `${relativeX}px`;
+      skillTooltip.style.top = `${relativeY}px`;
+
+      skillTooltip.classList.add('visible');
+    });
+
+    star.addEventListener('mouseleave', () => {
+      if (skillTooltip) {
+        skillTooltip.classList.remove('visible');
+      }
+    });
+
     star.addEventListener('mouseenter', () => {
       const constellation = star.closest('.constellation-group')?.getAttribute('data-constellation');
       if (constellation) {
