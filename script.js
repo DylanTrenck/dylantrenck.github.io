@@ -3,15 +3,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const stars = document.querySelectorAll('.star');
   const constellationLines = document.querySelectorAll('.constellation-line');
   const constellationGroups = document.querySelectorAll('.constellation-group');
-  const constellationLinesSVG = document.querySelector('.constellation-lines');
   const skillTooltip = document.getElementById('skill-tooltip');
   const skillTooltipTitle = skillTooltip?.querySelector('.skill-tooltip__title');
   const skillTooltipMeta = skillTooltip?.querySelector('.skill-tooltip__meta');
   const constellationContainer = document.querySelector('.constellation-container');
   
-  // Highlight constellation lines when hovering over stars
+  // Shared hover tooltip (single box beside hovered star)
   stars.forEach(star => {
-    // Shared tooltip hover behavior
     star.addEventListener('mouseenter', (event) => {
       if (!skillTooltip || !skillTooltipTitle || !skillTooltipMeta || !constellationContainer) return;
 
@@ -31,76 +29,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const starRect = target.getBoundingClientRect();
       const containerRect = constellationContainer.getBoundingClientRect();
-      const centerX = starRect.left + starRect.width / 2;
-      const topY = starRect.top;
 
-      const relativeX = centerX - containerRect.left;
-      const relativeY = topY - containerRect.top - 20; // sit just above the star
+      // Tooltip is positioned relative to the constellation container.
+      // CSS sets transform: translateY(-50%), so `top` should be the star center Y.
+      const starCenterY = starRect.top + starRect.height / 2;
+      const relativeCenterY = starCenterY - containerRect.top;
 
-      skillTooltip.style.left = `${relativeX}px`;
-      skillTooltip.style.top = `${relativeY}px`;
+      const tooltipWidth = skillTooltip.offsetWidth || 240; // sensible fallback
+      const tooltipHeight = skillTooltip.offsetHeight || 120; // sensible fallback
 
+      const gapX = 14;
+      const margin = 10;
+
+      // Default: place to the right of the star.
+      let left = starRect.right - containerRect.left + gapX;
+      let placeLeft = false;
+
+      // Smart flip: if it overflows the container on the right, move to the left.
+      if (left + tooltipWidth > containerRect.width - margin) {
+        placeLeft = true;
+        left = starRect.left - containerRect.left - tooltipWidth - gapX;
+      }
+
+      // Clamp horizontally to keep it inside the container.
+      left = Math.max(margin, Math.min(left, containerRect.width - tooltipWidth - margin));
+
+      // Clamp vertically to avoid cutting off at top/bottom.
+      let top = relativeCenterY;
+      top = Math.max(margin + tooltipHeight / 2, top);
+      top = Math.min(containerRect.height - margin - tooltipHeight / 2, top);
+
+      skillTooltip.classList.toggle('skill-tooltip--left', placeLeft);
+      skillTooltip.style.left = `${left}px`;
+      skillTooltip.style.top = `${top}px`;
       skillTooltip.classList.add('visible');
     });
 
     star.addEventListener('mouseleave', () => {
       if (skillTooltip) {
         skillTooltip.classList.remove('visible');
-      }
-    });
-
-    star.addEventListener('mouseenter', () => {
-      const constellation = star.closest('.constellation-group')?.getAttribute('data-constellation');
-      if (constellation) {
-        constellationLines.forEach(line => {
-          if (line.getAttribute('data-constellation') === constellation) {
-            line.style.strokeOpacity = '0.9';
-            line.style.strokeWidth = '2.5';
-            line.style.filter = 'drop-shadow(0 0 6px rgba(168, 187, 163, 0.8))';
-          }
-        });
-        if (constellationLinesSVG) {
-          constellationLinesSVG.style.opacity = '0.7';
-        }
-      }
-    });
-    
-    star.addEventListener('mouseleave', () => {
-      constellationLines.forEach(line => {
-        line.style.strokeOpacity = '';
-        line.style.strokeWidth = '';
-        line.style.filter = '';
-      });
-      if (constellationLinesSVG) {
-        constellationLinesSVG.style.opacity = '';
-      }
-    });
-  });
-  
-  // Highlight entire constellation group on hover
-  constellationGroups.forEach(group => {
-    group.addEventListener('mouseenter', () => {
-      const constellation = group.getAttribute('data-constellation');
-      constellationLines.forEach(line => {
-        if (line.getAttribute('data-constellation') === constellation) {
-          line.style.strokeOpacity = '0.7';
-          line.style.strokeWidth = '2';
-          line.style.filter = 'drop-shadow(0 0 4px rgba(168, 187, 163, 0.6))';
-        }
-      });
-      if (constellationLinesSVG) {
-        constellationLinesSVG.style.opacity = '0.6';
-      }
-    });
-    
-    group.addEventListener('mouseleave', () => {
-      constellationLines.forEach(line => {
-        line.style.strokeOpacity = '';
-        line.style.strokeWidth = '';
-        line.style.filter = '';
-      });
-      if (constellationLinesSVG) {
-        constellationLinesSVG.style.opacity = '';
       }
     });
   });

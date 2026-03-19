@@ -413,15 +413,6 @@ section h2 {
   transform: translate(-50%, 0);
 }
 
-.constellation-group:hover .constellation-label {
-  color: var(--creme);
-  text-shadow: 
-    0 0 15px rgba(248, 240, 227, 0.8),
-    0 0 30px rgba(248, 240, 227, 0.5),
-    0 2px 6px rgba(0, 0, 0, 0.6);
-  transform: translate(-50%, 0) scale(1.1);
-}
-
 /* Scroll reveal for constellation groups */
 .constellation-group {
   position: absolute;
@@ -474,11 +465,6 @@ section h2 {
 
 .constellation-group.visible::before {
   opacity: 1;
-}
-
-.constellation-group:hover::before {
-  opacity: 1;
-  background: radial-gradient(circle, rgba(168, 187, 163, 0.15) 0%, rgba(168, 187, 163, 0.06) 50%, transparent 70%);
 }
 
 .constellation-group .star {
@@ -534,35 +520,7 @@ section h2 {
 }
 
 .star:hover {
-  transform: translate(-50%, -50%) scale(1.2);
   z-index: 20;
-}
-
-/* Simple CSS-only hover tooltip fallback (shows skill + years) */
-.star::before {
-  content: attr(data-skill) " • " attr(data-years) " yrs";
-  position: absolute;
-  top: -32px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 0.35rem 0.6rem;
-  background: rgba(32, 24, 24, 0.95);
-  color: var(--creme);
-  border-radius: 999px;
-  font-size: 0.7rem;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
-  box-shadow:
-    0 6px 18px rgba(0, 0, 0, 0.7),
-    0 0 12px rgba(248, 240, 227, 0.4);
-}
-
-.star:hover::before {
-  opacity: 1;
-  transform: translateX(-50%) translateY(-4px);
 }
 
 .star-glow {
@@ -602,14 +560,6 @@ section h2 {
   content: none;
 }
 
-.star:hover .star-core {
-  width: 18px;
-  height: 18px;
-  box-shadow: 
-    0 0 14px rgba(255, 255, 255, 1),
-    0 0 26px rgba(168, 187, 163, 0.9);
-}
-
 .star-label {
   position: absolute;
   top: 50%;
@@ -628,20 +578,10 @@ section h2 {
   display: none; /* hide static label; language shows in tooltip only */
 }
 
-.star:hover .star-label {
-  /* no-op; labels are hidden, tooltip handles language display */
-}
-
 /* Legacy per-star tooltip markup is present in HTML but hidden.
    We now use a single shared tooltip panel driven by JS. */
 .star-tooltip {
   display: none !important;
-}
-
-.star:hover .star-glow {
-  animation: twinkle 1s ease-in-out infinite;
-  width: 100px;
-  height: 100px;
 }
 
 /* Shared skill tooltip panel (appears near hovered star) */
@@ -661,15 +601,16 @@ section h2 {
   backdrop-filter: blur(12px);
   pointer-events: none;
   opacity: 0;
-  transform: translate(-50%, -10px);
-  transition: opacity 0.25s ease-out, transform 0.25s ease-out;
+  /* JS controls vertical centering (top = star center) */
+  transform: translateY(-50%);
+  transition: opacity 0.25s ease-out;
   z-index: 50;
   line-height: 1.6;
 }
 
 .skill-tooltip.visible {
   opacity: 1;
-  transform: translate(-50%, 0);
+  transform: translateY(-50%);
 }
 
 .skill-tooltip__title {
@@ -695,24 +636,23 @@ section h2 {
 .skill-tooltip::after {
   content: '';
   position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border-width: 8px;
+  top: 50%;
+  left: -8px; /* arrow points toward the star (tooltip is on the right) */
+  transform: translateY(-50%);
   border-style: solid;
-  border-color: rgba(32, 24, 24, 0.98) transparent transparent transparent;
+  border-width: 8px 8px 8px 0;
+  border-color: transparent rgba(32, 24, 24, 0.98) transparent transparent;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
 }
 
+.skill-tooltip--left::after {
+  left: auto;
+  right: -8px; /* arrow points toward the star (tooltip is on the left) */
+  border-width: 8px 0 8px 8px;
+  border-color: transparent transparent transparent rgba(32, 24, 24, 0.98);
+}
+
 /* Constellation Group Hover Effect - properties merged above */
-
-.constellation-group:hover .star {
-  transform: translate(-50%, -50%) scale(1.15);
-}
-
-.constellation-group:hover .constellation-lines {
-  opacity: 0.6;
-}
 
 /* Animations */
 @keyframes twinkle {
@@ -762,11 +702,6 @@ section h2 {
   .star-glow {
     width: 60px;
     height: 60px;
-  }
-  
-  .star::before {
-    width: 80px;
-    height: 80px;
   }
 }
 
