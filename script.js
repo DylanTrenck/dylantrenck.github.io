@@ -1,6 +1,6 @@
 // Constellation interactivity + scroll reveal
 document.addEventListener('DOMContentLoaded', () => {
-  const stars = document.querySelectorAll('.star');
+  const stars = document.querySelectorAll('.constellation-container .star');
   const constellationLines = document.querySelectorAll('.constellation-line');
   const constellationGroups = document.querySelectorAll('.constellation-group');
   const skillTooltip = document.getElementById('skill-tooltip');
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     star.addEventListener('mouseleave', () => {
       if (skillTooltip) {
-        skillTooltip.classList.remove('visible');
+        skillTooltip.classList.remove('visible', 'skill-tooltip--left');
       }
     });
   });

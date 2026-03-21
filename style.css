@@ -393,6 +393,7 @@ section h2 {
   opacity: 0;
   transition: opacity 0.6s ease, transform 0.6s ease, color 0.4s ease, text-shadow 0.4s ease;
   margin-bottom: 20px;
+  pointer-events: none;
 }
 
 .constellation-label::after {
@@ -423,6 +424,8 @@ section h2 {
   opacity: 0;
   transform: translateY(30px);
   transition: all 0.6s ease, opacity 0.6s ease, transform 0.6s ease;
+  /* Let pointer events reach stars in the group below in the DOM (Languages under Tools). */
+  pointer-events: none;
 }
 
 /* Staggered entrance animations */
@@ -584,7 +587,13 @@ section h2 {
   display: none !important;
 }
 
-/* Shared skill tooltip panel (appears near hovered star) */
+.star:hover .star-glow {
+  animation: twinkle 1s ease-in-out infinite;
+  width: 100px;
+  height: 100px;
+}
+
+/* Shared skill tooltip panel (beside hovered star; JS flips left if needed) */
 .skill-tooltip {
   position: absolute;
   min-width: 220px;
