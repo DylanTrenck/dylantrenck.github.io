@@ -470,8 +470,13 @@ section h2 {
   opacity: 1;
 }
 
+/* Explicit hit target: .star has only absolutely positioned children (all pointer-events: none),
+   so without width/height the box collapses to ~0×0 and hover/tooltips never fire. */
 .constellation-group .star {
   pointer-events: auto;
+  width: 100px;
+  height: 100px;
+  box-sizing: border-box;
 }
 
 .constellation-group.visible {

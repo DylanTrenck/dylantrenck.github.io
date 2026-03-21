@@ -131,20 +131,6 @@ window.addEventListener('click', function(event) {
   if (event.target === modal) {
     modal.style.display = 'none';
   }
-  contactForm.addEventListener("submit", function (event) {
-    event.preventDefault();
-
-    emailjs.sendForm('trencktech', 'PW', contactForm)
-      .then(function(response) {
-        console.log('SUCCESS!', response.status, response.text);
-        alert("Your message has been sent!");
-        modal.style.display = "none";
-        contactForm.reset(); // Optionally reset the form fields
-      }, function(error) {
-        console.error('FAILED...', error);
-        alert("Failed to send your message. Please try again later.");
-      });
-  });
 });
 
 
