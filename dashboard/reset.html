@@ -124,36 +124,59 @@
 
     let sessionReady = false
 
-    // Wait for Supabase to exchange the token from the URL hash
-    sb.auth.onAuthStateChange(async (event, session) => {
-      if (event === 'PASSWORD_RECOVERY' || (event === 'SIGNED_IN' && session)) {
-        sessionReady = true
-        document.getElementById('btn').disabled = false
-        document.getElementById('msg').textContent = 'Token verified — set your new password below.'
-        document.getElementById('msg').className = 'msg success'
-      }
-    })
+    function showMsg(text, type) {
+      const el = document.getElementById('msg')
+      el.textContent = text
+      el.className = 'msg' + (type ? ' ' + type : '')
+    }
 
     // Disable button until session is confirmed
     document.getElementById('btn').disabled = true
-    document.getElementById('msg').textContent = 'Verifying token...'
-    document.getElementById('msg').className = 'msg'
+    showMsg('Verifying token...')
 
-    // Fallback — if onAuthStateChange doesn't fire, check session directly
-    setTimeout(async () => {
-      if (!sessionReady) {
-        const { data } = await sb.auth.getSession()
-        if (data?.session) {
-          sessionReady = true
-          document.getElementById('btn').disabled = false
-          document.getElementById('msg').textContent = 'Token verified — set your new password below.'
-          document.getElementById('msg').className = 'msg success'
-        } else {
-          document.getElementById('msg').textContent = 'Token expired — request a new recovery email.'
-          document.getElementById('msg').className = 'msg error'
+    // Supabase recovery emails land with either:
+    //   PKCE flow  → ?code=XXXX  (Supabase v2 default)
+    //   Implicit   → #access_token=XXX&type=recovery
+    // Handle both explicitly so we don't depend on onAuthStateChange timing.
+    ;(async () => {
+      const query = new URLSearchParams(location.search)
+      const hash  = new URLSearchParams(location.hash.slice(1))
+
+      const code         = query.get('code')
+      const accessToken  = hash.get('access_token')
+      const refreshToken = hash.get('refresh_token')
+      const type         = hash.get('type')
+
+      if (code) {
+        // PKCE flow — exchange the one-time code for a session
+        const { error } = await sb.auth.exchangeCodeForSession(code)
+        if (error) {
+          showMsg('Token expired — request a new recovery email.', 'error')
+          return
         }
+      } else if (accessToken && type === 'recovery') {
+        // Implicit flow — set the session directly from hash tokens
+        const { error } = await sb.auth.setSession({ access_token: accessToken, refresh_token: refreshToken || '' })
+        if (error) {
+          showMsg('Token expired — request a new recovery email.', 'error')
+          return
+        }
+      } else {
+        showMsg('No recovery token found. Request a new recovery email.', 'error')
+        return
       }
-    }, 3000)
+
+      // Confirm a session actually exists before enabling the form
+      const { data } = await sb.auth.getSession()
+      if (!data?.session) {
+        showMsg('Token expired — request a new recovery email.', 'error')
+        return
+      }
+
+      sessionReady = true
+      document.getElementById('btn').disabled = false
+      showMsg('Token verified — set your new password below.', 'success')
+    })()
 
     async function setPassword() {
       const pw = document.getElementById('pw').value
