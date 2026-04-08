@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Life Roadmap</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f0f0f;
+      --surface: #1a1a1a;
+      --surface2: #222;
+      --border: rgba(255,255,255,0.08);
+      --border2: rgba(255,255,255,0.14);
+      --text: #f0f0f0;
+      --muted: #777;
+      --hint: #555;
+      --radius: 10px;
+      --font-sans: system-ui, -apple-system, sans-serif;
+      --font-mono: 'Courier New', monospace;
+      --font-serif: 'Georgia', serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    /* ── Layout ─────────────────────────────────────────────── */
+    .shell { max-width: 780px; margin: 0 auto; }
+
+    /* ── Top bar ────────────────────────────────────────────── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .wordmark {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      color: var(--text);
+    }
+
+    .topbar-right { display: flex; gap: 8px; align-items: center; }
+
+    /* ── Buttons ────────────────────────────────────────────── */
+    button {
+      font-family: var(--font-sans);
+      cursor: pointer;
+      border-radius: 6px;
+      font-size: 12px;
+      transition: opacity 0.12s, background 0.12s;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border: 0.5px solid var(--border2);
+      color: var(--muted);
+      padding: 7px 13px;
+    }
+
+    .btn-ghost:hover { background: var(--surface); color: var(--text); }
+
+    .btn-primary {
+      background: var(--text);
+      color: var(--bg);
+      border: none;
+      padding: 7px 14px;
+      font-weight: 500;
+    }
+
+    .btn-primary:hover { opacity: 0.85; }
+
+    .btn-icon {
+      background: transparent;
+      border: 0.5px solid var(--border);
+      color: var(--hint);
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      border-radius: 6px;
+    }
+
+    .btn-icon:hover { background: var(--surface2); color: var(--muted); }
+    .btn-icon svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── Stats ──────────────────────────────────────────────── */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+    }
+
+    .stat-val { font-size: 24px; font-weight: 500; color: var(--text); }
+    .stat-lbl { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-top: 3px; font-family: var(--font-mono); }
+
+    /* ── Filters ────────────────────────────────────────────── */
+    .filters {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: 0.5px solid var(--border);
+      color: var(--muted);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+    }
+
+    .filter-btn:hover { border-color: var(--border2); color: var(--text); }
+    .filter-btn.on { background: var(--surface2); border-color: var(--border2); color: var(--text); }
+
+    /* ── Ticket list ────────────────────────────────────────── */
+    .ticket-list { display: flex; flex-direction: column; gap: 6px; }
+
+    .ticket {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 13px 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      transition: border-color 0.12s;
+    }
+
+    .ticket:hover { border-color: var(--border2); }
+    .ticket.done { opacity: 0.45; }
+
+    .check {
+      width: 17px;
+      height: 17px;
+      border-radius: 4px;
+      border: 0.5px solid var(--border2);
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+      padding: 0;
+    }
+
+    .check.on { background: #1D9E7530; border-color: #1D9E75; }
+    .check svg { display: none; width: 10px; height: 10px; stroke: #1D9E75; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+    .check.on svg { display: block; }
+
+    .seq {
+      font-size: 10px;
+      color: var(--hint);
+      font-family: var(--font-mono);
+      flex-shrink: 0;
+      margin-top: 2px;
+      min-width: 24px;
+    }
+
+    .tbody { flex: 1; min-width: 0; }
+
+    .t-top {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+      margin-bottom: 4px;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .dot-high { background: #e24b4a; }
+    .dot-mid  { background: #EF9F27; }
+    .dot-low  { background: #639922; }
+
+    .t-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .t-title.struck { text-decoration: line-through; color: var(--hint); }
+
+    .pill {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 20px;
+      letter-spacing: 0.03em;
+      flex-shrink: 0;
+    }
+
+    .pill-student  { background: #085041; color: #9FE1CB; }
+    .pill-dev      { background: #633806; color: #FAC775; }
+    .pill-founder  { background: #3C3489; color: #CECBF6; }
+    .pill-creative { background: #72243E; color: #F4C0D1; }
+
+    .pill-tool {
+      background: transparent;
+      border: 0.5px solid var(--border2);
+      color: var(--muted);
+    }
+
+    .t-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.55;
+      margin-bottom: 6px;
+    }
+
+    .t-meta {
+      font-size: 10px;
+      color: var(--hint);
+      font-family: var(--font-mono);
+    }
+
+    .t-actions { display: flex; gap: 5px; flex-shrink: 0; }
+
+    /* ── Section divider ────────────────────────────────────── */
+    .divider {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--hint);
+      font-family: var(--font-mono);
+      padding: 10px 0 5px;
+      border-bottom: 0.5px solid var(--border);
+      margin-bottom: 6px;
+      margin-top: 10px;
+    }
+
+    /* ── Empty ──────────────────────────────────────────────── */
+    .empty {
+      text-align: center;
+      padding: 4rem 1rem;
+      color: var(--hint);
+      font-size: 13px;
+    }
+
+    /* ── Agent box ──────────────────────────────────────────── */
+    .agent-box {
+      margin-top: 1.5rem;
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      display: none;
+    }
+
+    .agent-box.open { display: block; }
+    .agent-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-family: var(--font-mono); margin-bottom: 10px; }
+    .agent-text { font-size: 12px; font-family: var(--font-mono); color: var(--muted); white-space: pre-wrap; word-break: break-word; line-height: 1.65; }
+    .agent-copy { margin-top: 12px; }
+
+    /* ── Modal overlay ──────────────────────────────────────── */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      z-index: 100;
+    }
+
+    .overlay.open { display: flex; }
+
+    .modal {
+      background: var(--surface);
+      border: 0.5px solid var(--border2);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      width: 100%;
+      max-width: 460px;
+    }
+
+    .modal-title { font-size: 16px; font-weight: 500; margin-bottom: 1.25rem; font-family: var(--font-serif); }
+
+    .field { margin-bottom: 12px; }
+
+    .field label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      margin-bottom: 5px;
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      background: var(--bg);
+      border: 0.5px solid var(--border2);
+      border-radius: 6px;
+      padding: 9px 11px;
+      font-size: 13px;
+      color: var(--text);
+      font-family: var(--font-sans);
+      outline: none;
+    }
+
+    .field textarea { height: 80px; resize: vertical; }
+    .field select option { background: var(--surface2); }
+
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus { border-color: var(--border2); }
+
+    .field-row { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px; }
+
+    .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 1rem; }
+
+    /* ── Loading ────────────────────────────────────────────── */
+    .loading { text-align: center; padding: 4rem; color: var(--hint); font-size: 13px; font-family: var(--font-mono); }
+
+    @media (max-width: 500px) {
+      .stats { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .field-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <!-- Top bar -->
+    <div class="topbar">
+      <span class="wordmark">Life roadmap</span>
+      <div class="topbar-right">
+        <button class="btn-ghost" onclick="exportAgent()">Queue for agent</button>
+        <button class="btn-ghost" onclick="signOut()">Sign out</button>
+        <button class="btn-primary" onclick="openModal()">+ New ticket</button>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat"><div class="stat-val" id="s-total">—</div><div class="stat-lbl">Total</div></div>
+      <div class="stat"><div class="stat-val" id="s-open">—</div><div class="stat-lbl">Open</div></div>
+      <div class="stat"><div class="stat-val" id="s-done">—</div><div class="stat-lbl">Done</div></div>
+      <div class="stat"><div class="stat-val" id="s-high">—</div><div class="stat-lbl">High priority</div></div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+      <button class="filter-btn on" data-f="all" onclick="setFilter('all',this)">All</button>
+      <button class="filter-btn" data-f="student" onclick="setFilter('student',this)">Student</button>
+      <button class="filter-btn" data-f="dev" onclick="setFilter('dev',this)">Freelance dev</button>
+      <button class="filter-btn" data-f="founder" onclick="setFilter('founder',this)">HighlightHub</button>
+      <button class="filter-btn" data-f="creative" onclick="setFilter('creative',this)">Creative</button>
+      <button class="filter-btn" data-f="open" onclick="setFilter('open',this)">Open only</button>
+    </div>
+
+    <!-- Ticket list -->
+    <div class="ticket-list" id="list"><div class="loading">Loading tickets...</div></div>
+
+    <!-- Agent prompt box -->
+    <div class="agent-box" id="agent-box">
+      <div class="agent-label">Agent queue prompt — paste into Claude Code or CoWork</div>
+      <div class="agent-text" id="agent-text"></div>
+      <div class="agent-copy">
+        <button class="btn-ghost" onclick="copyAgent()">Copy to clipboard</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="overlay" id="overlay">
+    <div class="modal">
+      <p class="modal-title" id="modal-title">New ticket</p>
+      <div class="field"><label>Title</label><input type="text" id="f-title" placeholder="What needs to get done?"></div>
+      <div class="field"><label>Description / agent instructions</label><textarea id="f-desc" placeholder="Be specific — this becomes the agent's task brief"></textarea></div>
+      <div class="field-row">
+        <div class="field"><label>Role</label>
+          <select id="f-role">
+            <option value="student">Student</option>
+            <option value="dev">Freelance dev</option>
+            <option value="founder">HighlightHub</option>
+            <option value="creative">Creative</option>
+          </select>
+        </div>
+        <div class="field"><label>Tool</label>
+          <select id="f-tool">
+            <option value="Claude chat">Claude chat</option>
+            <option value="Claude Code">Claude Code</option>
+            <option value="CoWork">CoWork</option>
+            <option value="Manual">Manual</option>
+          </select>
+        </div>
+        <div class="field"><label>Priority</label>
+          <select id="f-priority">
+            <option value="high">High</option>
+            <option value="mid">Mid</option>
+            <option value="low">Low</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-ghost" onclick="closeModal()">Cancel</button>
+        <button class="btn-primary" onclick="saveTicket()">Save ticket</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ─── PASTE YOUR SUPABASE CREDENTIALS HERE ───────────────────────────────
+    const SUPABASE_URL = 'https://YOUR_PROJECT.supabase.co'
+    const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY'
+    // ────────────────────────────────────────────────────────────────────────
+
+    const { createClient } = supabase
+    const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+
+    let tickets = []
+    let filter = 'all'
+    let editId = null
+
+    const ROLE_LABELS = { student: 'Student', dev: 'Freelance dev', founder: 'HighlightHub', creative: 'Creative' }
+    const PRIORITY_ORDER = { high: 0, mid: 1, low: 2 }
+
+    // ── Auth guard ──────────────────────────────────────────────────────────
+    async function init() {
+      const { data } = await sb.auth.getSession()
+      if (!data.session) {
+        window.location.href = 'index.html'
+        return
+      }
+      await loadTickets()
+    }
+
+    async function signOut() {
+      await sb.auth.signOut()
+      window.location.href = 'index.html'
+    }
+
+    // ── Data ────────────────────────────────────────────────────────────────
+    async function loadTickets() {
+      const { data, error } = await sb
+        .from('tickets')
+        .select('*')
+        .order('sort_order', { ascending: true })
+
+      if (error) { console.error(error); return }
+      tickets = data || []
+      render()
+    }
+
+    async function upsertTicket(t) {
+      const { error } = await sb.from('tickets').upsert(t)
+      if (error) console.error(error)
+    }
+
+    async function deleteTicket(id) {
+      tickets = tickets.filter(t => t.id !== id)
+      render()
+      await sb.from('tickets').delete().eq('id', id)
+    }
+
+    async function toggleDone(id) {
+      const t = tickets.find(x => x.id === id)
+      if (!t) return
+      t.done = !t.done
+      render()
+      await upsertTicket({ id: t.id, done: t.done })
+    }
+
+    // ── Render ───────────────────────────────────────────────────────────────
+    function visible() {
+      return tickets
+        .filter(t => {
+          if (filter === 'open') return !t.done
+          if (filter === 'all') return true
+          return t.role === filter
+        })
+        .sort((a, b) => {
+          if (a.done !== b.done) return a.done ? 1 : -1
+          return (PRIORITY_ORDER[a.priority] ?? 1) - (PRIORITY_ORDER[b.priority] ?? 1)
+            || (a.sort_order ?? 0) - (b.sort_order ?? 0)
+        })
+    }
+
+    function render() {
+      const total = tickets.length
+      const done = tickets.filter(t => t.done).length
+      const open = total - done
+      const high = tickets.filter(t => t.priority === 'high' && !t.done).length
+
+      document.getElementById('s-total').textContent = total
+      document.getElementById('s-open').textContent = open
+      document.getElementById('s-done').textContent = done
+      document.getElementById('s-high').textContent = high
+
+      const list = visible()
+      const el = document.getElementById('list')
+
+      if (!list.length) {
+        el.innerHTML = '<div class="empty">No tickets — add one above</div>'
+        return
+      }
+
+      const openGroup = list.filter(t => !t.done)
+      const doneGroup = list.filter(t => t.done)
+      let html = ''
+      let seq = 0
+
+      openGroup.forEach(t => {
+        seq++
+        html += ticketHTML(t, seq)
+      })
+
+      if (doneGroup.length) {
+        html += '<div class="divider">Completed</div>'
+        doneGroup.forEach(t => { html += ticketHTML(t, '') })
+      }
+
+      el.innerHTML = html
+    }
+
+    function ticketHTML(t, seq) {
+      const checked = t.done ? 'on' : ''
+      const struck = t.done ? 'struck' : ''
+      const roleLabel = ROLE_LABELS[t.role] || t.role
+      const dotClass = `dot-${t.priority || 'mid'}`
+
+      return `<div class="ticket${t.done ? ' done' : ''}">
+        <button class="check ${checked}" onclick="toggleDone('${t.id}')">
+          <svg viewBox="0 0 12 12"><polyline points="1.5,6 4.5,9 10.5,3"/></svg>
+        </button>
+        <span class="seq">${seq ? '#' + seq : ''}</span>
+        <div class="tbody">
+          <div class="t-top">
+            <span class="dot ${dotClass}"></span>
+            <span class="t-title ${struck}">${esc(t.title)}</span>
+            <span class="pill pill-${t.role}">${esc(roleLabel)}</span>
+            <span class="pill pill-tool">${esc(t.tool)}</span>
+          </div>
+          ${t.description ? `<div class="t-desc">${esc(t.description)}</div>` : ''}
+          <div class="t-meta">${t.id} · ${esc(t.tool)}</div>
+        </div>
+        <div class="t-actions">
+          <button class="btn-icon" onclick="openModal('${t.id}')" title="Edit">
+            <svg viewBox="0 0 16 16"><path d="M11 2l3 3-9 9H2v-3L11 2z"/></svg>
+          </button>
+          <button class="btn-icon" onclick="deleteTicket('${t.id}')" title="Delete">
+            <svg viewBox="0 0 16 16"><polyline points="3,4 13,4"/><path d="M5 4V3a1 1 0 011-1h4a1 1 0 011 1v1M6 7v6M10 7v6M4 4l1 10h6l1-10"/></svg>
+          </button>
+        </div>
+      </div>`
+    }
+
+    function esc(s) {
+      return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')
+    }
+
+    // ── Filters ──────────────────────────────────────────────────────────────
+    function setFilter(f, el) {
+      filter = f
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('on'))
+      el.classList.add('on')
+      render()
+    }
+
+    // ── Modal ────────────────────────────────────────────────────────────────
+    function openModal(id) {
+      editId = id || null
+      const t = id ? tickets.find(x => x.id === id) : null
+      document.getElementById('modal-title').textContent = t ? 'Edit ticket' : 'New ticket'
+      document.getElementById('f-title').value = t?.title || ''
+      document.getElementById('f-desc').value = t?.description || ''
+      document.getElementById('f-role').value = t?.role || 'student'
+      document.getElementById('f-tool').value = t?.tool || 'Claude chat'
+      document.getElementById('f-priority').value = t?.priority || 'mid'
+      document.getElementById('overlay').classList.add('open')
+      setTimeout(() => document.getElementById('f-title').focus(), 50)
+    }
+
+    function closeModal() {
+      document.getElementById('overlay').classList.remove('open')
+      editId = null
+    }
+
+    async function saveTicket() {
+      const title = document.getElementById('f-title').value.trim()
+      if (!title) return
+
+      const ticket = {
+        id: editId || 'T-' + Math.random().toString(36).slice(2, 7).toUpperCase(),
+        title,
+        description: document.getElementById('f-desc').value.trim(),
+        role: document.getElementById('f-role').value,
+        tool: document.getElementById('f-tool').value,
+        priority: document.getElementById('f-priority').value,
+        done: editId ? tickets.find(t => t.id === editId)?.done || false : false,
+        sort_order: editId ? tickets.find(t => t.id === editId)?.sort_order ?? tickets.length : tickets.length
+      }
+
+      if (editId) {
+        const idx = tickets.findIndex(t => t.id === editId)
+        if (idx !== -1) tickets[idx] = ticket
+      } else {
+        tickets.push(ticket)
+      }
+
+      closeModal()
+      render()
+      await upsertTicket(ticket)
+    }
+
+    // Close modal on overlay click
+    document.getElementById('overlay').addEventListener('click', e => {
+      if (e.target === document.getElementById('overlay')) closeModal()
+    })
+
+    // ── Agent export ─────────────────────────────────────────────────────────
+    function exportAgent() {
+      const open = tickets
+        .filter(t => !t.done)
+        .sort((a, b) => (PRIORITY_ORDER[a.priority] ?? 1) - (PRIORITY_ORDER[b.priority] ?? 1) || (a.sort_order ?? 0) - (b.sort_order ?? 0))
+
+      const box = document.getElementById('agent-box')
+
+      if (!open.length) {
+        box.classList.remove('open')
+        return
+      }
+
+      const lines = [
+        'You are working through my life roadmap task queue. Complete each task in order.',
+        'For each task: read the instructions carefully, complete it fully, note any blockers, then move on.',
+        'Report back with a summary of what was completed.\n',
+        'TASK QUEUE:\n'
+      ]
+
+      open.forEach((t, i) => {
+        lines.push(`[${i + 1}] ${t.id} — ${t.title}`)
+        lines.push(`    Role: ${ROLE_LABELS[t.role]} | Tool: ${t.tool} | Priority: ${t.priority}`)
+        if (t.description) lines.push(`    Instructions: ${t.description}`)
+        lines.push('')
+      })
+
+      lines.push('Begin with task [1]. Confirm completion of each task before proceeding to the next.')
+
+      document.getElementById('agent-text').textContent = lines.join('\n')
+      box.classList.add('open')
+    }
+
+    async function copyAgent() {
+      const text = document.getElementById('agent-text').textContent
+      try {
+        await navigator.clipboard.writeText(text)
+      } catch (e) {
+        console.error('Copy failed', e)
+      }
+    }
+
+    init()
+  </script>
+</body>
+</html>
