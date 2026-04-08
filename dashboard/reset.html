@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Set password</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0f0f0f;
+      --surface: #1a1a1a;
+      --border: rgba(255,255,255,0.08);
+      --text: #f0f0f0;
+      --muted: #888;
+      --radius: 10px;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .card {
+      width: 100%;
+      max-width: 360px;
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+    }
+    .eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-family: monospace;
+      margin-bottom: 6px;
+    }
+    h1 {
+      font-size: 22px;
+      font-weight: normal;
+      font-family: Georgia, serif;
+      margin-bottom: 1.75rem;
+    }
+    .field { margin-bottom: 14px; }
+    label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-family: monospace;
+      margin-bottom: 6px;
+    }
+    input {
+      width: 100%;
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 12px;
+      font-size: 14px;
+      color: var(--text);
+      font-family: monospace;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    input:focus { border-color: rgba(255,255,255,0.25); }
+    button {
+      width: 100%;
+      margin-top: 8px;
+      background: var(--text);
+      color: var(--bg);
+      border: none;
+      border-radius: 6px;
+      padding: 11px;
+      font-size: 13px;
+      font-family: monospace;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    button:hover { opacity: 0.85; }
+    button:disabled { opacity: 0.4; cursor: not-allowed; }
+    .msg {
+      margin-top: 12px;
+      font-size: 12px;
+      font-family: monospace;
+      text-align: center;
+      min-height: 18px;
+    }
+    .msg.error { color: #e24b4a; }
+    .msg.success { color: #1D9E75; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <p class="eyebrow">Dashboard access</p>
+    <h1>Set your password</h1>
+    <div class="field">
+      <label>New password</label>
+      <input type="password" id="pw" placeholder="••••••••" autocomplete="new-password">
+    </div>
+    <div class="field">
+      <label>Confirm password</label>
+      <input type="password" id="pw2" placeholder="••••••••" autocomplete="new-password">
+    </div>
+    <button id="btn" onclick="setPassword()">Set password</button>
+    <p class="msg" id="msg"></p>
+  </div>
+
+  <script>
+    // ─── PASTE YOUR SUPABASE CREDENTIALS HERE ───────────────────────────────
+    const SUPABASE_URL = 'https://YOUR_PROJECT.supabase.co'
+    const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY'
+    // ────────────────────────────────────────────────────────────────────────
+
+    const { createClient } = supabase
+    const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+
+    // Supabase puts the token in the URL hash — this picks it up automatically
+    sb.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        document.getElementById('msg').textContent = 'Token verified — set your new password below.'
+        document.getElementById('msg').className = 'msg success'
+      }
+    })
+
+    async function setPassword() {
+      const pw = document.getElementById('pw').value
+      const pw2 = document.getElementById('pw2').value
+      const btn = document.getElementById('btn')
+      const msg = document.getElementById('msg')
+
+      if (!pw || pw.length < 8) {
+        msg.textContent = 'Password must be at least 8 characters.'
+        msg.className = 'msg error'
+        return
+      }
+
+      if (pw !== pw2) {
+        msg.textContent = 'Passwords do not match.'
+        msg.className = 'msg error'
+        return
+      }
+
+      btn.disabled = true
+      btn.textContent = 'Saving...'
+
+      const { error } = await sb.auth.updateUser({ password: pw })
+
+      if (error) {
+        msg.textContent = error.message || 'Something went wrong. Request a new reset link.'
+        msg.className = 'msg error'
+        btn.disabled = false
+        btn.textContent = 'Set password'
+      } else {
+        msg.textContent = 'Password set! Redirecting to your dashboard...'
+        msg.className = 'msg success'
+        setTimeout(() => { window.location.href = 'board.html' }, 1500)
+      }
+    }
+
+    document.getElementById('pw2').addEventListener('keydown', e => {
+      if (e.key === 'Enter') setPassword()
+    })
+  </script>
+</body>
+</html>
