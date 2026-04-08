@@ -122,19 +122,50 @@
     const { createClient } = supabase
     const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
-    // Supabase puts the token in the URL hash — this picks it up automatically
+    let sessionReady = false
+
+    // Wait for Supabase to exchange the token from the URL hash
     sb.auth.onAuthStateChange(async (event, session) => {
-      if (event === 'PASSWORD_RECOVERY') {
+      if (event === 'PASSWORD_RECOVERY' || (event === 'SIGNED_IN' && session)) {
+        sessionReady = true
+        document.getElementById('btn').disabled = false
         document.getElementById('msg').textContent = 'Token verified — set your new password below.'
         document.getElementById('msg').className = 'msg success'
       }
     })
+
+    // Disable button until session is confirmed
+    document.getElementById('btn').disabled = true
+    document.getElementById('msg').textContent = 'Verifying token...'
+    document.getElementById('msg').className = 'msg'
+
+    // Fallback — if onAuthStateChange doesn't fire, check session directly
+    setTimeout(async () => {
+      if (!sessionReady) {
+        const { data } = await sb.auth.getSession()
+        if (data?.session) {
+          sessionReady = true
+          document.getElementById('btn').disabled = false
+          document.getElementById('msg').textContent = 'Token verified — set your new password below.'
+          document.getElementById('msg').className = 'msg success'
+        } else {
+          document.getElementById('msg').textContent = 'Token expired — request a new recovery email.'
+          document.getElementById('msg').className = 'msg error'
+        }
+      }
+    }, 3000)
 
     async function setPassword() {
       const pw = document.getElementById('pw').value
       const pw2 = document.getElementById('pw2').value
       const btn = document.getElementById('btn')
       const msg = document.getElementById('msg')
+
+      if (!sessionReady) {
+        msg.textContent = 'Still verifying token, please wait a moment.'
+        msg.className = 'msg error'
+        return
+      }
 
       if (!pw || pw.length < 8) {
         msg.textContent = 'Password must be at least 8 characters.'
