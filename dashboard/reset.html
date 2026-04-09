@@ -143,28 +143,42 @@
     document.getElementById('btn').disabled = true
     showMsg('Verifying token...')
 
-    ;(async () => {
-      if (code) {
-        // PKCE flow (?code=) — exchange the one-time code
-        const { error } = await sb.auth.exchangeCodeForSession(code)
-        if (error) { showMsg('Token expired — request a new recovery email.', 'error'); return }
-      } else if (accessToken && tokenType === 'recovery') {
-        // Implicit flow (#access_token=) — tokens captured before createClient
-        // cleared the hash; set the session directly with the real values.
-        const { error } = await sb.auth.setSession({ access_token: accessToken, refresh_token: refreshToken })
-        if (error) { showMsg('Token expired — request a new recovery email.', 'error'); return }
-      } else {
-        showMsg('No recovery token found. Request a new recovery email.', 'error')
-        return
-      }
-
-      // Final confirmation
-      const { data } = await sb.auth.getSession()
-      if (!data?.session) { showMsg('Token expired — request a new recovery email.', 'error'); return }
-
+    function markReady() {
       sessionReady = true
       document.getElementById('btn').disabled = false
       showMsg('Token verified — set your new password below.', 'success')
+    }
+
+    ;(async () => {
+      if (code) {
+        // PKCE flow (?code=) — exchange the one-time code explicitly
+        const { error } = await sb.auth.exchangeCodeForSession(code)
+        if (error) { showMsg('Token expired — request a new recovery email.', 'error'); return }
+        const { data } = await sb.auth.getSession()
+        if (!data?.session) { showMsg('Token expired — request a new recovery email.', 'error'); return }
+        markReady()
+
+      } else if (accessToken && tokenType === 'recovery') {
+        // Implicit flow — Supabase's detectSessionInUrl already processed the hash
+        // and set the session internally on createClient. Do NOT call setSession
+        // again — it conflicts. Just confirm the session is there.
+        const { data } = await sb.auth.getSession()
+        if (data?.session) { markReady(); return }
+
+        // Race: detectSessionInUrl is still async — wait for PASSWORD_RECOVERY
+        const timer = setTimeout(() => {
+          if (!sessionReady) showMsg('Token expired — request a new recovery email.', 'error')
+        }, 6000)
+        sb.auth.onAuthStateChange((event, session) => {
+          if (event === 'PASSWORD_RECOVERY' && session) {
+            clearTimeout(timer)
+            markReady()
+          }
+        })
+
+      } else {
+        showMsg('No recovery token found. Request a new recovery email.', 'error')
+      }
     })()
 
     async function setPassword() {
