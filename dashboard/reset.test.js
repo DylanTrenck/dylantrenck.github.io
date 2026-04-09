@@ -16,65 +16,60 @@ function assert(condition, label) {
 }
 
 // ─── Simulate the URL parsing logic from reset.html ──────────────────────────
+// Mirrors the production code: capture hash before createClient, then use
+// accessToken + tokenType directly (not a boolean hasHashToken).
 
-function detectTokens(search, hash) {
-  const query = new URLSearchParams(search)
-  const hashParams = new URLSearchParams(hash.startsWith('#') ? hash.slice(1) : hash)
-  const code = query.get('code')
-  const hasHashToken = hashParams.get('access_token') && hashParams.get('type') === 'recovery'
-  return { code, hasHashToken }
+function parseUrl(search, hash) {
+  const query       = new URLSearchParams(search)
+  const hashParams  = new URLSearchParams(hash.startsWith('#') ? hash.slice(1) : hash)
+  return {
+    code:         query.get('code'),
+    accessToken:  hashParams.get('access_token'),
+    refreshToken: hashParams.get('refresh_token') || '',
+    tokenType:    hashParams.get('type'),
+  }
 }
 
-// Same logic, but reading hash BEFORE Supabase can clear it (the fix)
-function detectTokensEarly(search, hashAtPageLoad) {
-  const query = new URLSearchParams(search)
-  const hashParams = new URLSearchParams(hashAtPageLoad.startsWith('#') ? hashAtPageLoad.slice(1) : hashAtPageLoad)
-  const code = query.get('code')
-  const hasHashToken = hashParams.get('access_token') && hashParams.get('type') === 'recovery'
-  return { code, hasHashToken }
+function resolveFlow({ code, accessToken, tokenType }) {
+  if (code) return 'pkce'
+  if (accessToken && tokenType === 'recovery') return 'implicit'
+  return 'none'
 }
 
-// ─── Suite 1: Token detection with hash present ───────────────────────────────
+// ─── Suite 1: Token detection — implicit flow ─────────────────────────────────
 
 console.log('\nSuite 1: Token detection — hash URL (implicit flow)')
 
 const implicitHash = '#access_token=eyJfoo&expires_at=9999999999&expires_in=3600&refresh_token=abc123&sb=&token_type=bearer&type=recovery'
 
-const r1 = detectTokens('', implicitHash)
-assert(r1.hasHashToken === true,  'detects access_token + type=recovery in hash')
-assert(r1.code === null,          'no code in query string')
+const r1 = parseUrl('', implicitHash)
+assert(r1.accessToken === 'eyJfoo',   'captures access_token from hash')
+assert(r1.refreshToken === 'abc123',  'captures refresh_token from hash')
+assert(r1.tokenType === 'recovery',   'captures type=recovery from hash')
+assert(resolveFlow(r1) === 'implicit','resolves to implicit flow')
 
-// Simulate Supabase clearing the hash (the actual bug)
-const r2 = detectTokens('', '') // hash is '' after Supabase clears it
-assert(!r2.hasHashToken,             'hash cleared by Supabase → hasHashToken is falsy (this is the bug)')
-assert(!r2.code && !r2.hasHashToken, 'cleared hash → falls into "no token found" branch (wrong)')
-
-// The fix: read hash before createClient
-const r3 = detectTokensEarly('', implicitHash)
-assert(r3.hasHashToken === true,  'early read captures hash before Supabase clears it')
+// Simulate what happens if hash is read AFTER Supabase clears it
+const r2 = parseUrl('', '')
+assert(resolveFlow(r2) === 'none',    'cleared hash → no flow detected (the old bug, now avoided by early capture)')
 
 // ─── Suite 2: Token detection — PKCE flow ────────────────────────────────────
 
 console.log('\nSuite 2: Token detection — query param URL (PKCE flow)')
 
-const r4 = detectTokens('?code=abc123xyz', '')
-assert(r4.code === 'abc123xyz',   'detects code in query string')
-assert(!r4.hasHashToken,          'no hash token in PKCE URL')
+const r3 = parseUrl('?code=abc123xyz', '')
+assert(r3.code === 'abc123xyz',       'captures code from query string')
+assert(resolveFlow(r3) === 'pkce',    'resolves to PKCE flow')
 
-const r5 = detectTokens('', '')
-assert(!r5.code && !r5.hasHashToken, 'bare URL → no token found')
+const r4 = parseUrl('', '')
+assert(resolveFlow(r4) === 'none',    'bare URL → no token found')
 
-// ─── Suite 3: hash.get('type') must equal 'recovery' exactly ─────────────────
+// ─── Suite 3: type= value must equal 'recovery' exactly ──────────────────────
 
 console.log('\nSuite 3: type= value must be exactly "recovery"')
 
-const wrongType = '#access_token=foo&type=signup'
-const r6 = detectTokens('', wrongType)
-assert(r6.hasHashToken === false, 'type=signup is not treated as recovery token')
-
-const missingType = '#access_token=foo'
-const r7 = detectTokens('', missingType)
-assert(r7.hasHashToken === false, 'missing type param → not treated as recovery token')
+assert(resolveFlow(parseUrl('', '#access_token=foo&type=signup'))  === 'none', 'type=signup → not recovery flow')
+assert(resolveFlow(parseUrl('', '#access_token=foo'))              === 'none', 'missing type → not recovery flow')
+assert(resolveFlow(parseUrl('', '#type=recovery'))                 === 'none', 'missing access_token → not recovery flow')
 
 // ─── Suite 4: Form validation logic ──────────────────────────────────────────
 

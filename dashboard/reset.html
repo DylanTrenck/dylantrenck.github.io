@@ -122,11 +122,13 @@
     const { createClient } = supabase
 
     // Capture URL params BEFORE createClient — Supabase clears location.hash
-    // during initialisation (detectSessionInUrl) and we'd miss the token.
-    const _query = new URLSearchParams(location.search)
-    const _hash  = new URLSearchParams(location.hash.slice(1))
+    // during initialisation (detectSessionInUrl) and we'd miss the tokens.
+    const _query        = new URLSearchParams(location.search)
+    const _hash         = new URLSearchParams(location.hash.slice(1))
     const code          = _query.get('code')
-    const hasHashToken  = !!(_hash.get('access_token') && _hash.get('type') === 'recovery')
+    const accessToken   = _hash.get('access_token')
+    const refreshToken  = _hash.get('refresh_token') || ''
+    const tokenType     = _hash.get('type')
 
     const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
@@ -138,45 +140,32 @@
       el.className = 'msg' + (type ? ' ' + type : '')
     }
 
-    // Disable button until session is confirmed
     document.getElementById('btn').disabled = true
     showMsg('Verifying token...')
 
-    // Supabase recovery emails land with either:
-    //   PKCE flow    → ?code=XXXX   (exchange explicitly)
-    //   Implicit     → #access_token=XXX&type=recovery
-    //
-    // For implicit flow, Supabase auto-detects the hash (now already captured above)
-    // and fires PASSWORD_RECOVERY via onAuthStateChange — don't call setSession.
-
-    if (!code && !hasHashToken) {
-      showMsg('No recovery token found. Request a new recovery email.', 'error')
-    } else if (code) {
-      // PKCE flow — exchange the one-time code then confirm session exists
-      ;(async () => {
+    ;(async () => {
+      if (code) {
+        // PKCE flow (?code=) — exchange the one-time code
         const { error } = await sb.auth.exchangeCodeForSession(code)
         if (error) { showMsg('Token expired — request a new recovery email.', 'error'); return }
-        const { data } = await sb.auth.getSession()
-        if (!data?.session) { showMsg('Token expired — request a new recovery email.', 'error'); return }
-        sessionReady = true
-        document.getElementById('btn').disabled = false
-        showMsg('Token verified — set your new password below.', 'success')
-      })()
-    } else {
-      // Implicit flow — Supabase handles hash detection; wait for PASSWORD_RECOVERY
-      const deadline = setTimeout(() => {
-        if (!sessionReady) showMsg('Token expired — request a new recovery email.', 'error')
-      }, 8000)
+      } else if (accessToken && tokenType === 'recovery') {
+        // Implicit flow (#access_token=) — tokens captured before createClient
+        // cleared the hash; set the session directly with the real values.
+        const { error } = await sb.auth.setSession({ access_token: accessToken, refresh_token: refreshToken })
+        if (error) { showMsg('Token expired — request a new recovery email.', 'error'); return }
+      } else {
+        showMsg('No recovery token found. Request a new recovery email.', 'error')
+        return
+      }
 
-      sb.auth.onAuthStateChange((event, session) => {
-        if (event === 'PASSWORD_RECOVERY' && session) {
-          clearTimeout(deadline)
-          sessionReady = true
-          document.getElementById('btn').disabled = false
-          showMsg('Token verified — set your new password below.', 'success')
-        }
-      })
-    }
+      // Final confirmation
+      const { data } = await sb.auth.getSession()
+      if (!data?.session) { showMsg('Token expired — request a new recovery email.', 'error'); return }
+
+      sessionReady = true
+      document.getElementById('btn').disabled = false
+      showMsg('Token verified — set your new password below.', 'success')
+    })()
 
     async function setPassword() {
       const pw = document.getElementById('pw').value
