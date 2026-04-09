@@ -120,6 +120,14 @@
     // ────────────────────────────────────────────────────────────────────────
 
     const { createClient } = supabase
+
+    // Capture URL params BEFORE createClient — Supabase clears location.hash
+    // during initialisation (detectSessionInUrl) and we'd miss the token.
+    const _query = new URLSearchParams(location.search)
+    const _hash  = new URLSearchParams(location.hash.slice(1))
+    const code          = _query.get('code')
+    const hasHashToken  = !!(_hash.get('access_token') && _hash.get('type') === 'recovery')
+
     const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
     let sessionReady = false
@@ -138,14 +146,8 @@
     //   PKCE flow    → ?code=XXXX   (exchange explicitly)
     //   Implicit     → #access_token=XXX&type=recovery
     //
-    // For implicit flow, Supabase auto-detects the hash on createClient
-    // (detectSessionInUrl: true) and fires PASSWORD_RECOVERY via onAuthStateChange.
-    // Calling setSession manually on top of that conflicts — don't do it.
-
-    const query = new URLSearchParams(location.search)
-    const hash  = new URLSearchParams(location.hash.slice(1))
-    const code  = query.get('code')
-    const hasHashToken = hash.get('access_token') && hash.get('type') === 'recovery'
+    // For implicit flow, Supabase auto-detects the hash (now already captured above)
+    // and fires PASSWORD_RECOVERY via onAuthStateChange — don't call setSession.
 
     if (!code && !hasHashToken) {
       showMsg('No recovery token found. Request a new recovery email.', 'error')
